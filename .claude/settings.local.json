@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(rm:*)",
+      "Bash(brew install:*)",
+      "Bash(npm install:*)",
+      "Bash(gh:*)",
+      "Bash(vercel:*)",
+      "Bash(git add:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm lint:*)"
+    ],
+    "deny": []
+  }
+}
