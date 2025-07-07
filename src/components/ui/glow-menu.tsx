@@ -91,7 +91,8 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
               <motion.li key={item.label} className="relative">
                 <button
                   onClick={() => onItemClick?.(item.label)}
-                  className="block w-full"
+                  className="block w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 rounded-xl"
+                  aria-label={`Navigate to ${item.label} section`}
                 >
                   <motion.div
                     className="block rounded-xl overflow-visible group relative"

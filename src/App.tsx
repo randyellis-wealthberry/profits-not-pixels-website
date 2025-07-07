@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Swoosh } from "@/components/ui/swoosh"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { MenuBarDemo } from "@/components/MenuBarDemo"
-import AnimatedTestimonialsDemo from "@/components/AnimatedTestimonialsDemo"
-import { ArrowRight, TrendingUp, Users, Target, BookOpen, Star } from "lucide-react"
+import Testimonials from "@/components/ui/testimonials-columns-1"
+import { StackedCircularFooter } from "@/components/ui/stacked-circular-footer"
+import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
+import BentoGridDemo from "@/components/ui/bento-grid-demo"
+import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
 
 function App() {
   return (
@@ -44,7 +46,8 @@ function App() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 
                 size="lg" 
-                className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold px-8 py-6 text-lg"
+                className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold text-lg"
+                aria-label="Pre-order Profits Not Pixels book - Coming Soon"
               >
                 Coming Soon
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -52,7 +55,8 @@ function App() {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="border-[#fbbf24] text-[#fbbf24] hover:bg-[#fbbf24] hover:text-black px-8 py-6 text-lg"
+                className="border-[#fbbf24] text-[#fbbf24] hover:bg-[#fbbf24] hover:text-black text-lg"
+                aria-label="Learn more about Profits Not Pixels book"
               >
                 Learn More
               </Button>
@@ -75,8 +79,8 @@ function App() {
             <div className="relative">
               <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6"></div>
               <img
-                src="/Profits Not Pixels Minimalist Book Cover.png"
-                alt="Profits Not Pixels Book Cover"
+                src="/Profits Not Pixels Updated Book Cover.png"
+                alt="Profits Not Pixels Updated Book Cover"
                 className="relative z-10 w-80 lg:w-96 h-auto shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-700"
               />
             </div>
@@ -84,56 +88,28 @@ function App() {
         </div>
       </section>
 
+      {/* Logo Carousel Section */}
+      <LogoCarouselDemo />
+
+      {/* Testimonials Section */}
+      <div id="testimonials">
+        <Testimonials />
+      </div>
+
       {/* Value Proposition Section */}
       <section id="features" className="py-20 px-6 bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-6 mb-16">
             <Swoosh size="md" className="mx-auto" />
             <h2 className="text-4xl lg:text-5xl font-light">
-              Why <span className="text-[#fbbf24]">Boardroom Dominance</span> Matters
+              Why <span className="text-[#fbbf24]">Boardroom Fluency</span> Matters
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Stop being seen as just a "creative." Learn to speak the language of business and become an indispensable strategic partner.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-gray-800/50 border-gray-700">
-              <CardHeader>
-                <TrendingUp className="h-12 w-12 text-[#fbbf24] mb-4" />
-                <CardTitle className="text-white">Strategic Impact</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-gray-300">
-                  Transform from executing tasks to driving business outcomes. Learn to connect design decisions to revenue growth.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gray-800/50 border-gray-700">
-              <CardHeader>
-                <Users className="h-12 w-12 text-[#fbbf24] mb-4" />
-                <CardTitle className="text-white">Executive Presence</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-gray-300">
-                  Command respect in C-suite meetings. Present design work that resonates with business leaders and stakeholders.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gray-800/50 border-gray-700">
-              <CardHeader>
-                <Target className="h-12 w-12 text-[#fbbf24] mb-4" />
-                <CardTitle className="text-white">Career Acceleration</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-gray-300">
-                  Position yourself for leadership roles. Move beyond traditional design boundaries into strategic positions.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
+          <BentoGridDemo />
         </div>
       </section>
 
@@ -176,7 +152,8 @@ function App() {
 
             <Button 
               size="lg" 
-              className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold px-8 py-6 text-lg"
+              className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold text-lg"
+              aria-label="Purchase and start reading Profits Not Pixels today"
             >
               <BookOpen className="mr-2 h-5 w-5" />
               Start Reading Today
@@ -190,24 +167,6 @@ function App() {
               className="w-full max-w-md h-auto rounded-lg shadow-2xl"
             />
           </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 px-6 bg-[#1e293b]">
-        <div className="max-w-6xl mx-auto text-center space-y-12">
-          <div className="space-y-6">
-            <Swoosh size="md" className="mx-auto" />
-            <h2 className="text-4xl lg:text-5xl font-light">
-              What <span className="text-[#fbbf24]">Readers</span> Say
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Join thousands of designers who have transformed their careers from creative executors to strategic leaders.
-            </p>
-          </div>
-          <ScrollArea className="h-[400px] w-full">
-            <AnimatedTestimonialsDemo />
-          </ScrollArea>
         </div>
       </section>
 
@@ -256,7 +215,7 @@ function App() {
           <Swoosh size="lg" className="mx-auto" />
           
           <h2 className="text-4xl lg:text-5xl font-light">
-            Ready to Dominate the <span className="text-[#fbbf24]">Boardroom</span>?
+            Ready to Master <span className="text-[#fbbf24]">Boardroom Fluency</span>?
           </h2>
           
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -266,7 +225,8 @@ function App() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold px-12 py-6 text-xl"
+              className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold text-xl px-12"
+              aria-label="Purchase your copy of Profits Not Pixels book now"
             >
               Get Your Copy Now
               <ArrowRight className="ml-2 h-6 w-6" />
@@ -280,24 +240,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 bg-[#0f172a] border-t border-gray-800">
-        <div className="max-w-6xl mx-auto text-center space-y-6">
-          <div className="flex items-center justify-center gap-2">
-            <Swoosh size="sm" />
-            <span className="text-lg font-semibold">Profits, Not Pixels</span>
-          </div>
-          
-          <p className="text-gray-400">
-            © 2024 Profits, Not Pixels. All rights reserved.
-          </p>
-          
-          <div className="flex justify-center gap-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-[#fbbf24] transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-[#fbbf24] transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-[#fbbf24] transition-colors">Contact</a>
-          </div>
-        </div>
-      </footer>
+      <StackedCircularFooter />
     </div>
   )
 }

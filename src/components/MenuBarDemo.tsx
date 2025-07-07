@@ -57,13 +57,47 @@ export function MenuBarDemo() {
   const [activeItem, setActiveItem] = useState<string>("Home")
 
   const handleItemClick = (label: string) => {
+    console.log('🔍 Menu item clicked:', label)
     setActiveItem(label)
+    
     // Scroll to section based on href
     const href = menuItems.find(item => item.label === label)?.href
+    console.log('🎯 Target href:', href)
+    
     if (href) {
       const element = document.querySelector(href)
+      console.log('🔍 Found element:', element)
+      
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        // Calculate offset to account for fixed header
+        const headerHeight = 100 // Approximate header height with padding
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY - headerHeight
+        
+        console.log('📏 Scroll calculation:', {
+          elementTop: element.getBoundingClientRect().top,
+          windowScrollY: window.scrollY,
+          headerHeight,
+          finalPosition: elementPosition
+        })
+        
+        // Try multiple scroll methods for maximum compatibility
+        try {
+          window.scrollTo({
+            top: elementPosition,
+            behavior: 'smooth'
+          })
+          console.log('✅ window.scrollTo() executed')
+        } catch (error) {
+          console.log('❌ window.scrollTo() failed, trying fallback:', error)
+          // Fallback to scrollIntoView with offset
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          // Then adjust for header
+          setTimeout(() => {
+            window.scrollBy(0, -headerHeight)
+          }, 100)
+        }
+      } else {
+        console.log('❌ Element not found for:', href)
       }
     }
   }
