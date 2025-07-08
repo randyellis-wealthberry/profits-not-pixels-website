@@ -9,6 +9,7 @@ import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
 import BentoGridDemo from "@/components/ui/bento-grid-demo"
 import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
 import { FAQ } from "@/components/ui/faq-section"
+import { AppleCardsCarouselDemo } from "@/components/apple-cards-carousel-demo"
 
 function App() {
   return (
@@ -96,6 +97,9 @@ function App() {
       <div id="testimonials">
         <Testimonials />
       </div>
+
+      {/* Apple Cards Carousel Section */}
+      <AppleCardsCarouselDemo />
 
       {/* Value Proposition Section */}
       <section id="features" className="py-20 px-6 bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
