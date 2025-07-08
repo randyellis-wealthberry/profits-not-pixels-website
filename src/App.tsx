@@ -8,6 +8,7 @@ import { StackedCircularFooter } from "@/components/ui/stacked-circular-footer"
 import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
 import BentoGridDemo from "@/components/ui/bento-grid-demo"
 import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
+import { FAQ } from "@/components/ui/faq-section"
 
 function App() {
   return (
@@ -208,6 +209,9 @@ function App() {
           </Card>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQ />
 
       {/* Final CTA Section */}
       <section id="contact" className="py-20 px-6 bg-[#1e293b]">
