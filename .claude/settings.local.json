@@ -17,7 +17,9 @@
       "Bash(pnpm type-check:*)",
       "Bash(pnpm lint:*)",
       "Bash(grep:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(git branch:*)",
+      "Bash(pnpm i:*)"
     ],
     "deny": []
   }
