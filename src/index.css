@@ -58,14 +58,21 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: "Inter", system-ui, sans-serif;
     margin: 0;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
   #root {
     min-height: 100vh;
+    overflow-x: hidden;
   }
 }

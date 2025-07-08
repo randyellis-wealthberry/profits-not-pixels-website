@@ -75,3 +75,14 @@ src/
 - Use `cn()` utility for conditional styling
 - Implement proper TypeScript prop typing
 - Use React.forwardRef for ref handling
+
+### Deployment
+- **Vercel**: Configured for automatic deployment with SPA routing
+- **Netlify**: Configured with _redirects for SPA routing
+- Build output: `dist/` directory
+- Live preview accessible during development via Phion cloud sync
+
+### Latest Updates
+- Updated core dependencies to latest versions
+- Refined Phion cloud sync integration
+- Improved TypeScript type checking configurations

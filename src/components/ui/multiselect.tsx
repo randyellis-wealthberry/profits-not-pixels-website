@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/command"
 import { Cross2Icon } from "@radix-ui/react-icons"
 
-export interface Option {
+export interface MultiselectOption {
   value: string
   label: string
   disable?: boolean
@@ -23,14 +23,14 @@ export interface Option {
   [key: string]: string | boolean | undefined
 }
 interface GroupOption {
-  [key: string]: Option[]
+  [key: string]: MultiselectOption[]
 }
 
 interface MultipleSelectorProps {
-  value?: Option[]
-  defaultOptions?: Option[]
+  value?: MultiselectOption[]
+  defaultOptions?: MultiselectOption[]
   /** manually controlled options */
-  options?: Option[]
+  options?: MultiselectOption[]
   placeholder?: string
   /** Loading component. */
   loadingIndicator?: React.ReactNode
@@ -44,14 +44,14 @@ interface MultipleSelectorProps {
    **/
   triggerSearchOnFocus?: boolean
   /** async search */
-  onSearch?: (value: string) => Promise<Option[]>
+  onSearch?: (value: string) => Promise<MultiselectOption[]>
   /**
    * sync search. This search will not showing loadingIndicator.
    * The rest props are the same as async search.
    * i.e.: creatable, groupBy, delay.
    **/
-  onSearchSync?: (value: string) => Option[]
-  onChange?: (options: Option[]) => void
+  onSearchSync?: (value: string) => MultiselectOption[]
+  onChange?: (options: MultiselectOption[]) => void
   /** Limit the maximum number of selected options. */
   maxSelected?: number
   /** When the number of selected options exceeds the limit, the onMaxSelected will be called. */
@@ -84,7 +84,7 @@ interface MultipleSelectorProps {
 }
 
 export interface MultipleSelectorRef {
-  selectedValue: Option[]
+  selectedValue: MultiselectOption[]
   input: HTMLInputElement
   focus: () => void
   reset: () => void
@@ -104,7 +104,7 @@ export function useDebounce<T>(value: T, delay?: number): T {
   return debouncedValue
 }
 
-function transToGroupOption(options: Option[], groupBy?: string) {
+function transToGroupOption(options: MultiselectOption[], groupBy?: string) {
   if (options.length === 0) {
     return {}
   }
@@ -125,7 +125,7 @@ function transToGroupOption(options: Option[], groupBy?: string) {
   return groupOption
 }
 
-function removePickedOption(groupOption: GroupOption, picked: Option[]) {
+function removePickedOption(groupOption: GroupOption, picked: MultiselectOption[]) {
   const cloneOption = JSON.parse(JSON.stringify(groupOption)) as GroupOption
 
   for (const [key, value] of Object.entries(cloneOption)) {
@@ -136,7 +136,7 @@ function removePickedOption(groupOption: GroupOption, picked: Option[]) {
   return cloneOption
 }
 
-function isOptionsExist(groupOption: GroupOption, targetOption: Option[]) {
+function isOptionsExist(groupOption: GroupOption, targetOption: MultiselectOption[]) {
   for (const [, value] of Object.entries(groupOption)) {
     if (
       value.some((option) => targetOption.find((p) => p.value === option.value))
@@ -212,7 +212,7 @@ const MultipleSelector = React.forwardRef<
     const [isLoading, setIsLoading] = React.useState(false)
     const dropdownRef = React.useRef<HTMLDivElement>(null) // Added this
 
-    const [selected, setSelected] = React.useState<Option[]>(value || [])
+    const [selected, setSelected] = React.useState<MultiselectOption[]>(value || [])
     const [options, setOptions] = React.useState<GroupOption>(
       transToGroupOption(arrayDefaultOptions, groupBy),
     )
@@ -243,7 +243,7 @@ const MultipleSelector = React.forwardRef<
     }
 
     const handleUnselect = React.useCallback(
-      (option: Option) => {
+      (option: MultiselectOption) => {
         const newOptions = selected.filter((s) => s.value !== option.value)
         setSelected(newOptions)
         onChange?.(newOptions)
@@ -326,7 +326,6 @@ const MultipleSelector = React.forwardRef<
       }
 
       void exec()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus])
 
     useEffect(() => {
@@ -352,7 +351,6 @@ const MultipleSelector = React.forwardRef<
       }
 
       void exec()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus])
 
     const CreatableItem = () => {
