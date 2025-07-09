@@ -65,7 +65,7 @@
     "@21st-extension/react": "latest",
     "@21st-extension/toolbar": "latest",
     "@21st-extension/toolbar-react": "latest",
-    "@types/node": "^20.19.4",
+    "@types/node": "^20.19.5",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^7.18.0",

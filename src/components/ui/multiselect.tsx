@@ -12,16 +12,8 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Cross2Icon } from "@radix-ui/react-icons"
+import { MultiselectOption, MultipleSelectorRef, useDebounce } from "./multiselect-utils"
 
-export interface MultiselectOption {
-  value: string
-  label: string
-  disable?: boolean
-  /** fixed option that can&lsquo;t be removed. */
-  fixed?: boolean
-  /** Group the options by providing key. */
-  [key: string]: string | boolean | undefined
-}
 interface GroupOption {
   [key: string]: MultiselectOption[]
 }
@@ -83,26 +75,7 @@ interface MultipleSelectorProps {
   hideClearAllButton?: boolean
 }
 
-export interface MultipleSelectorRef {
-  selectedValue: MultiselectOption[]
-  input: HTMLInputElement
-  focus: () => void
-  reset: () => void
-}
 
-export function useDebounce<T>(value: T, delay?: number): T {
-  const [debouncedValue, setDebouncedValue] = React.useState<T>(value)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay || 500)
-
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [value, delay])
-
-  return debouncedValue
-}
 
 function transToGroupOption(options: MultiselectOption[], groupBy?: string) {
   if (options.length === 0) {
