@@ -27,10 +27,10 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center px-6 py-20">
+      <section id="home" className="relative min-h-screen flex items-center justify-center py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
         
-        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 section-container stable-grid grid lg:grid-cols-2 gap-12 items-center layout-stable">
           {/* Left Content */}
           <div className="space-y-8 text-center lg:text-left">
             <div className="space-y-4">
@@ -87,12 +87,12 @@ function App() {
 
           {/* Right Content - Book Cover */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative">
+            <div className="relative book-cover-container">
               <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6"></div>
               <img
                 src={bookCoverSrc}
                 alt="Profits Not Pixels Book Cover"
-                className="relative z-10 w-64 lg:w-80 h-auto shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-700"
+                className="relative z-10 book-cover-fixed shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-700"
               />
             </div>
           </div>
@@ -111,8 +111,8 @@ function App() {
       {appleCardsEnabled && <AppleCardsCarouselDemo />}
 
       {/* Value Proposition Section */}
-      <section id="features" className="py-20 px-6 bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
-        <div className="max-w-6xl mx-auto">
+      <section id="features" className="py-20 bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
+        <div className="section-container">
           <div className="text-center space-y-6 mb-16">
             <Swoosh size="md" className="mx-auto" />
             <h2 className="text-4xl lg:text-5xl font-light">
@@ -128,8 +128,8 @@ function App() {
       </section>
 
       {/* About the Book Section */}
-      <section id="about" className="py-20 px-6 bg-[#0f172a]">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <section id="about" className="py-20 bg-[#0f172a]">
+        <div className="section-container stable-grid grid lg:grid-cols-2 gap-12 items-center layout-stable">
           <div className="space-y-8">
             <div className="space-y-4">
               <Swoosh size="md" />
@@ -175,12 +175,12 @@ function App() {
           </div>
 
           <div className="flex justify-center">
-            <div className="relative">
+            <div className="relative book-cover-container">
               <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-3"></div>
               <img
                 src="/book-cover-with-author.png"
                 alt="Profits Not Pixels Book Cover by Randy M. Ellis"
-                className="relative z-10 w-full max-w-xs h-auto rounded-lg shadow-2xl"
+                className="relative z-10 book-cover-fixed rounded-lg shadow-2xl"
               />
             </div>
           </div>
@@ -188,8 +188,8 @@ function App() {
       </section>
 
       {/* About the Author Section */}
-      <section id="author" className="py-20 px-6 bg-gradient-to-t from-[#1e293b] to-[#0f172a]">
-        <div className="max-w-4xl mx-auto text-center space-y-12">
+      <section id="author" className="py-20 bg-gradient-to-t from-[#1e293b] to-[#0f172a]">
+        <div className="section-container text-center space-y-12">
           <div className="space-y-6">
             <Swoosh size="md" className="mx-auto" />
             <h2 className="text-4xl lg:text-5xl font-light">
@@ -230,8 +230,8 @@ function App() {
       <FAQ />
 
       {/* Corporate Section */}
-      <section id="corporate" className="py-20 px-6 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
-        <div className="max-w-6xl mx-auto text-center space-y-12">
+      <section id="corporate" className="py-20 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
+        <div className="section-container text-center space-y-12">
           <div className="space-y-6">
             <Swoosh size="md" className="mx-auto" />
             <h2 className="text-4xl lg:text-5xl font-light">
@@ -242,7 +242,7 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="stable-grid grid md:grid-cols-3 gap-8 layout-stable">
             <Card className="bg-gray-800/50 border-gray-700 p-6">
               <CardContent className="space-y-4">
                 <div className="w-12 h-12 bg-[#fbbf24] rounded-lg flex items-center justify-center">
@@ -290,8 +290,8 @@ function App() {
       </section>
 
       {/* Participate Section */}
-      <section id="participate" className="py-20 px-6 bg-[#1e293b]">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+      <section id="participate" className="py-20 bg-[#1e293b]">
+        <div className="section-container text-center space-y-8">
           <div className="space-y-6">
             <Swoosh size="md" className="mx-auto" />
             <h2 className="text-4xl lg:text-5xl font-light">
@@ -302,7 +302,7 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="stable-grid grid md:grid-cols-2 gap-8 layout-stable">
             <Card className="bg-gray-800/50 border-gray-700 p-6">
               <CardContent className="space-y-4">
                 <h3 className="text-xl font-semibold text-white">Community Access</h3>
@@ -337,8 +337,8 @@ function App() {
       </section>
 
       {/* Final CTA Section */}
-      <section id="contact" className="py-20 px-6 bg-[#1e293b]">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+      <section id="contact" className="py-20 bg-[#1e293b]">
+        <div className="section-container text-center space-y-8">
           <Swoosh size="lg" className="mx-auto" />
           
           <h2 className="text-4xl lg:text-5xl font-light">
