@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Home, BookOpen, Target, User, Phone, MessageSquare } from "lucide-react"
+import { Home, BookOpen, Target, User, Building2, Users } from "lucide-react"
 import { MenuBar } from "@/components/ui/glow-menu"
 
 const menuItems = [
@@ -28,14 +28,6 @@ const menuItems = [
     iconColor: "text-[#fbbf24]",
   },
   {
-    icon: MessageSquare,
-    label: "Testimonials",
-    href: "#testimonials",
-    gradient:
-      "radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(217, 119, 6, 0) 100%)",
-    iconColor: "text-[#fbbf24]",
-  },
-  {
     icon: User,
     label: "Author",
     href: "#author",
@@ -44,9 +36,17 @@ const menuItems = [
     iconColor: "text-[#fbbf24]",
   },
   {
-    icon: Phone,
-    label: "Contact",
-    href: "#contact",
+    icon: Building2,
+    label: "Corporate",
+    href: "#corporate",
+    gradient:
+      "radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(217, 119, 6, 0) 100%)",
+    iconColor: "text-[#fbbf24]",
+  },
+  {
+    icon: Users,
+    label: "Participate",
+    href: "#participate",
     gradient:
       "radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(217, 119, 6, 0) 100%)",
     iconColor: "text-[#fbbf24]",

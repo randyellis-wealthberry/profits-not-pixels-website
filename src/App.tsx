@@ -4,14 +4,21 @@ import { Badge } from "@/components/ui/badge"
 import { Swoosh } from "@/components/ui/swoosh"
 import { MenuBarDemo } from "@/components/MenuBarDemo"
 import Testimonials from "@/components/ui/testimonials-columns-1"
-import { StackedCircularFooter } from "@/components/ui/stacked-circular-footer"
+import { Footer2 } from "@/components/ui/footer2"
 import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
 import BentoGridDemo from "@/components/ui/bento-grid-demo"
 import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
 import { FAQ } from "@/components/ui/faq-section"
 import { AppleCardsCarouselDemo } from "@/components/apple-cards-carousel-demo"
+import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
+import { FlagDebugger } from "@/components/FlagDebugger"
 
 function App() {
+  // Feature flag hooks
+  const { variant: ctaVariant, buttonConfig, trackConversion } = useHeroCTAVariant();
+  const { bookCoverSrc } = useBookCoverVariant();
+  const appleCardsEnabled = useFeatureFlag('apple-cards-enabled');
+
   return (
     <div className="min-h-screen bg-[#1e293b] text-white">
       {/* Navigation Header */}
@@ -48,10 +55,12 @@ function App() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 
                 size="lg" 
-                className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold text-lg"
-                aria-label="Pre-order Profits Not Pixels book - Coming Soon"
+                className={buttonConfig.className}
+                aria-label={`${buttonConfig.text} - Profits Not Pixels book`}
+                disabled={buttonConfig.disabled}
+                onClick={() => trackConversion({ cta_variant: ctaVariant })}
               >
-                Coming Soon
+                {buttonConfig.text}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button 
@@ -81,9 +90,9 @@ function App() {
             <div className="relative">
               <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6"></div>
               <img
-                src="/Profits Not Pixels Updated Book Cover.png"
-                alt="Profits Not Pixels Updated Book Cover"
-                className="relative z-10 w-80 lg:w-96 h-auto shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-700"
+                src={bookCoverSrc}
+                alt="Profits Not Pixels Book Cover"
+                className="relative z-10 w-64 lg:w-80 h-auto shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-700"
               />
             </div>
           </div>
@@ -98,8 +107,8 @@ function App() {
         <Testimonials />
       </div>
 
-      {/* Apple Cards Carousel Section */}
-      <AppleCardsCarouselDemo />
+      {/* Apple Cards Carousel Section - Feature Flag Controlled */}
+      {appleCardsEnabled && <AppleCardsCarouselDemo />}
 
       {/* Value Proposition Section */}
       <section id="features" className="py-20 px-6 bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
@@ -166,11 +175,14 @@ function App() {
           </div>
 
           <div className="flex justify-center">
-            <img
-              src="/Profits Not Pixels Minimalist Website Landing Page.png"
-              alt="Book Preview"
-              className="w-full max-w-md h-auto rounded-lg shadow-2xl"
-            />
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-3"></div>
+              <img
+                src="/book-cover-with-author.png"
+                alt="Profits Not Pixels Book Cover by Randy M. Ellis"
+                className="relative z-10 w-full max-w-xs h-auto rounded-lg shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -217,6 +229,113 @@ function App() {
       {/* FAQ Section */}
       <FAQ />
 
+      {/* Corporate Section */}
+      <section id="corporate" className="py-20 px-6 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
+        <div className="max-w-6xl mx-auto text-center space-y-12">
+          <div className="space-y-6">
+            <Swoosh size="md" className="mx-auto" />
+            <h2 className="text-4xl lg:text-5xl font-light">
+              <span className="text-[#fbbf24]">Corporate</span> Solutions
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Transform your entire design organization with enterprise-level training and strategic consulting.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="bg-gray-800/50 border-gray-700 p-6">
+              <CardContent className="space-y-4">
+                <div className="w-12 h-12 bg-[#fbbf24] rounded-lg flex items-center justify-center">
+                  <Users className="h-6 w-6 text-black" />
+                </div>
+                <h3 className="text-xl font-semibold text-white">Team Training</h3>
+                <p className="text-gray-300">
+                  Comprehensive workshops to elevate your design team's business acumen and strategic thinking.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gray-800/50 border-gray-700 p-6">
+              <CardContent className="space-y-4">
+                <div className="w-12 h-12 bg-[#fbbf24] rounded-lg flex items-center justify-center">
+                  <BookOpen className="h-6 w-6 text-black" />
+                </div>
+                <h3 className="text-xl font-semibold text-white">Strategic Consulting</h3>
+                <p className="text-gray-300">
+                  Custom consulting to align your design organization with business objectives and growth strategies.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gray-800/50 border-gray-700 p-6">
+              <CardContent className="space-y-4">
+                <div className="w-12 h-12 bg-[#fbbf24] rounded-lg flex items-center justify-center">
+                  <Star className="h-6 w-6 text-black" />
+                </div>
+                <h3 className="text-xl font-semibold text-white">Leadership Development</h3>
+                <p className="text-gray-300">
+                  Executive coaching and leadership development programs for design leaders and directors.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Button 
+            size="lg" 
+            className="bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold text-lg px-8"
+          >
+            Schedule Consultation
+          </Button>
+        </div>
+      </section>
+
+      {/* Participate Section */}
+      <section id="participate" className="py-20 px-6 bg-[#1e293b]">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="space-y-6">
+            <Swoosh size="md" className="mx-auto" />
+            <h2 className="text-4xl lg:text-5xl font-light">
+              <span className="text-[#fbbf24]">Participate</span> in the Movement
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Join a community of designers who are transforming how the industry approaches business strategy.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-gray-800/50 border-gray-700 p-6">
+              <CardContent className="space-y-4">
+                <h3 className="text-xl font-semibold text-white">Community Access</h3>
+                <p className="text-gray-300">
+                  Connect with like-minded designers, share experiences, and learn from industry leaders.
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="border-[#fbbf24] text-[#fbbf24] hover:bg-[#fbbf24] hover:text-black"
+                >
+                  Join Community
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gray-800/50 border-gray-700 p-6">
+              <CardContent className="space-y-4">
+                <h3 className="text-xl font-semibold text-white">Monthly Workshops</h3>
+                <p className="text-gray-300">
+                  Attend live sessions on business strategy, executive communication, and career advancement.
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="border-[#fbbf24] text-[#fbbf24] hover:bg-[#fbbf24] hover:text-black"
+                >
+                  View Schedule
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA Section */}
       <section id="contact" className="py-20 px-6 bg-[#1e293b]">
         <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -248,7 +367,10 @@ function App() {
       </section>
 
       {/* Footer */}
-      <StackedCircularFooter />
+      <Footer2 />
+      
+      {/* Feature Flag Debugger (Development Only) */}
+      <FlagDebugger />
     </div>
   )
 }

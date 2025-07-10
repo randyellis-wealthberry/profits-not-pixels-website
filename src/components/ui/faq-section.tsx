@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { useFAQDefaultState } from "@/hooks/use-feature-flags";
 
 const faqData = [
   {
@@ -44,6 +45,8 @@ const faqData = [
 ];
 
 function FAQ() {
+  const { defaultOpenItems } = useFAQDefaultState();
+  
   return (
     <div className="w-full py-20 lg:py-40">
       <div className="container mx-auto">
@@ -68,9 +71,9 @@ function FAQ() {
               </div>
             </div>
           </div>
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion type="single" collapsible className="w-full" defaultValue={defaultOpenItems[0]}>
             {faqData.map((faq, index) => (
-              <AccordionItem key={index} value={"faq-" + index}>
+              <AccordionItem key={index} value={`item-${index + 1}`}>
                 <AccordionTrigger>
                   {faq.question}
                 </AccordionTrigger>

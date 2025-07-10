@@ -19,7 +19,12 @@
       "Bash(grep:*)",
       "Bash(pnpm build:*)",
       "Bash(git branch:*)",
-      "Bash(pnpm i:*)"
+      "Bash(pnpm i:*)",
+      "WebFetch(domain:boardroombookblitz-p6g15hocd-wealthberrylabs.vercel.app)",
+      "Bash(curl:*)",
+      "WebFetch(domain:vercel.com)",
+      "Bash(pnpm list:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }
