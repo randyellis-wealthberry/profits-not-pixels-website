@@ -29,27 +29,25 @@ export default defineConfig({
         manualChunks: (id) => {
           // Vendor libraries
           if (id.includes('node_modules')) {
-            // Keep React and React-DOM together for proper hook resolution
-            if (id.includes('react-dom')) {
+            // Keep ALL React ecosystem together for proper hook resolution
+            if (id.includes('react-dom') || 
+                id.includes('react/') || 
+                id.includes('react/index') ||
+                id.includes('@radix-ui') ||
+                id.includes('framer-motion') ||
+                id.includes('next-themes') ||
+                id.includes('cmdk') ||
+                id.includes('sonner') ||
+                id.includes('vaul') ||
+                id.includes('react-hook-form') ||
+                id.includes('react-resizable-panels')) {
               return 'vendor-react';
-            }
-            if (id.includes('react/') || id.includes('react/index')) {
-              return 'vendor-react';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'vendor-radix';
             }
             if (id.includes('@tabler/icons-react') || id.includes('lucide-react') || id.includes('@radix-ui/react-icons')) {
               return 'vendor-icons';
             }
-            if (id.includes('framer-motion')) {
-              return 'vendor-animation';
-            }
-            if (id.includes('class-variance-authority') || id.includes('clsx') || id.includes('tailwind-merge') || id.includes('next-themes')) {
+            if (id.includes('class-variance-authority') || id.includes('clsx') || id.includes('tailwind-merge')) {
               return 'vendor-utils';
-            }
-            if (id.includes('@relume')) {
-              return 'vendor-relume';
             }
             // Other vendor libraries
             return 'vendor-misc';
