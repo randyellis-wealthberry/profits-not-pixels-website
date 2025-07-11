@@ -187,48 +187,6 @@ function App() {
         </div>
       </section>
 
-      {/* About the Author Section */}
-      <section id="author" className="py-20 bg-gradient-to-t from-[#1e293b] to-[#0f172a]">
-        <div className="section-container text-center space-y-12">
-          <div className="space-y-6">
-            <Swoosh size="md" className="mx-auto" />
-            <h2 className="text-4xl lg:text-5xl font-light">
-              About the <span className="text-[#fbbf24]">Author</span>
-            </h2>
-          </div>
-
-          <Card className="bg-gray-800/50 border-gray-700 p-8">
-            <CardContent className="space-y-6">
-              <div className="w-32 h-32 mx-auto bg-gray-600 rounded-full flex items-center justify-center">
-                <Users className="h-16 w-16 text-gray-400" />
-              </div>
-              
-              <div className="space-y-4">
-                <h3 className="text-2xl font-semibold text-white">Author Name</h3>
-                <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                  An experienced designer and business strategist who has helped hundreds of designers transition from pixel-pushers to profit-drivers. With over 15 years in design leadership roles at Fortune 500 companies, they understand both sides of the creative-business divide.
-                </p>
-                
-                <div className="flex flex-wrap justify-center gap-4 pt-4">
-                  <Badge variant="outline" className="border-[#fbbf24] text-[#fbbf24]">
-                    Design Leadership
-                  </Badge>
-                  <Badge variant="outline" className="border-[#fbbf24] text-[#fbbf24]">
-                    Business Strategy
-                  </Badge>
-                  <Badge variant="outline" className="border-[#fbbf24] text-[#fbbf24]">
-                    Executive Coaching
-                  </Badge>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <FAQ />
-
       {/* Corporate Section */}
       <section id="corporate" className="py-20 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
         <div className="section-container text-center space-y-12">
@@ -288,6 +246,48 @@ function App() {
           </Button>
         </div>
       </section>
+
+      {/* About the Author Section */}
+      <section id="author" className="py-20 bg-gradient-to-t from-[#1e293b] to-[#0f172a]">
+        <div className="section-container text-center space-y-12">
+          <div className="space-y-6">
+            <Swoosh size="md" className="mx-auto" />
+            <h2 className="text-4xl lg:text-5xl font-light">
+              About the <span className="text-[#fbbf24]">Author</span>
+            </h2>
+          </div>
+
+          <Card className="bg-gray-800/50 border-gray-700 p-8">
+            <CardContent className="space-y-6">
+              <div className="w-32 h-32 mx-auto bg-gray-600 rounded-full flex items-center justify-center">
+                <Users className="h-16 w-16 text-gray-400" />
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="text-2xl font-semibold text-white">Author Name</h3>
+                <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                  An experienced designer and business strategist who has helped hundreds of designers transition from pixel-pushers to profit-drivers. With over 15 years in design leadership roles at Fortune 500 companies, they understand both sides of the creative-business divide.
+                </p>
+                
+                <div className="flex flex-wrap justify-center gap-4 pt-4">
+                  <Badge variant="outline" className="border-[#fbbf24] text-[#fbbf24]">
+                    Design Leadership
+                  </Badge>
+                  <Badge variant="outline" className="border-[#fbbf24] text-[#fbbf24]">
+                    Business Strategy
+                  </Badge>
+                  <Badge variant="outline" className="border-[#fbbf24] text-[#fbbf24]">
+                    Executive Coaching
+                  </Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <FAQ />
 
       {/* Participate Section */}
       <section id="participate" className="py-20 bg-[#1e293b]">
