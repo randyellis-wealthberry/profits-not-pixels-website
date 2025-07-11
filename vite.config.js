@@ -30,9 +30,24 @@ export default defineConfig({
         manualChunks: (id) => {
           // Vendor libraries
           if (id.includes('node_modules')) {
-            // Critical: ANYTHING React-related goes into vendor-react to prevent hook context issues
-            if (id.includes('react') || 
-                id.includes('@radix-ui') ||
+            // Phion and development-only packages - exclude completely from production
+            if (id.includes('phion') || id.includes('@21st-extension')) {
+              return null;
+            }
+            
+            // Core React and anything that imports React hooks
+            if (id.includes('react-dom') || 
+                id.includes('react/') || 
+                id.includes('react\\') ||
+                id.includes('/react') ||
+                id.includes('\\react') ||
+                id.includes('use-sync-external-store') ||
+                id.includes('scheduler')) {
+              return 'vendor-react-core';
+            }
+            
+            // UI libraries that depend on React
+            if (id.includes('@radix-ui') ||
                 id.includes('framer-motion') ||
                 id.includes('next-themes') ||
                 id.includes('cmdk') ||
@@ -42,16 +57,25 @@ export default defineConfig({
                 id.includes('react-resizable-panels') ||
                 id.includes('@tabler/icons-react') || 
                 id.includes('lucide-react')) {
-              return 'vendor-react';
+              return 'vendor-react-ui';
             }
-            if (id.includes('class-variance-authority') || id.includes('clsx') || id.includes('tailwind-merge')) {
+            
+            // Utility libraries (safe to separate)
+            if (id.includes('class-variance-authority') || 
+                id.includes('clsx') || 
+                id.includes('tailwind-merge')) {
               return 'vendor-utils';
             }
-            // Phion and development-only packages
-            if (id.includes('phion') || id.includes('@21st-extension')) {
-              return null; // Don't chunk development tools
+            
+            // Split large libraries
+            if (id.includes('@supabase') || id.includes('supabase')) {
+              return 'vendor-supabase';
             }
-            // Other vendor libraries
+            if (id.includes('@vercel/analytics')) {
+              return 'vendor-analytics';
+            }
+            
+            // Everything else
             return 'vendor-misc';
           }
           
