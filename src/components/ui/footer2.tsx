@@ -29,7 +29,7 @@ const Footer2 = ({
     title: "Profits, Not Pixels",
     url: "#home",
   },
-  tagline = "A Guide for Designers to Shift from Visual Appeal to Boardroom Fluency",
+  tagline = "A Guide to Profits, Not Pixels",
   menuItems = [
     {
       title: "Book",
@@ -57,7 +57,7 @@ const Footer2 = ({
       ],
     },
   ],
-  copyright = "© 2024 Profits, Not Pixels. All rights reserved.",
+  copyright = "© 2025 Profits, Not Pixels. All rights reserved.",
   bottomLinks = [
     { text: "Privacy Policy", url: "#" },
     { text: "Terms of Service", url: "#" },
@@ -79,7 +79,10 @@ const Footer2 = ({
                   />
                 </a>
               </div>
-              <p className="text-gray-300 font-medium max-w-md">{tagline}</p>
+              <div className="text-gray-300 font-medium max-w-md">
+                <p>{tagline}</p>
+                <p>Shift from Visual Appeal to Boardroom Fluency</p>
+              </div>
             </div>
             {menuItems.map((section, sectionIdx) => (
               <div key={sectionIdx} className="lg:col-span-1">

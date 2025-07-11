@@ -7,6 +7,7 @@ import { LucideIcon } from "lucide-react"
 interface MenuItem {
   icon: LucideIcon | React.FC
   label: string
+  shortLabel?: string // For tablet view
   href: string
   gradient: string
   iconColor: string
@@ -133,7 +134,10 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                       >
                         <Icon className="h-5 w-5" />
                       </span>
-                      <span>{item.label}</span>
+                      {/* Responsive text: hide on mobile, show on tablet+ */}
+                      <span className="hidden md:inline">
+                        {item.shortLabel || item.label}
+                      </span>
                     </motion.div>
                     <motion.div
                       className={cn(
@@ -159,7 +163,10 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                       >
                         <Icon className="h-5 w-5" />
                       </span>
-                      <span>{item.label}</span>
+                      {/* Responsive text: hide on mobile, show on tablet+ */}
+                      <span className="hidden md:inline">
+                        {item.shortLabel || item.label}
+                      </span>
                     </motion.div>
                   </motion.div>
                 </button>

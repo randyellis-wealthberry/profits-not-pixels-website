@@ -14,6 +14,7 @@ const menuItems = [
   {
     icon: BookOpen,
     label: "About Book",
+    shortLabel: "Book",
     href: "#about",
     gradient:
       "radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(217, 119, 6, 0) 100%)",
@@ -38,6 +39,7 @@ const menuItems = [
   {
     icon: Building2,
     label: "Corporate",
+    shortLabel: "Corp",
     href: "#corporate",
     gradient:
       "radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(217, 119, 6, 0) 100%)",
@@ -46,6 +48,7 @@ const menuItems = [
   {
     icon: Users,
     label: "Participate",
+    shortLabel: "Join",
     href: "#participate",
     gradient:
       "radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(217, 119, 6, 0) 100%)",

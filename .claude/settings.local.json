@@ -24,7 +24,13 @@
       "Bash(curl:*)",
       "WebFetch(domain:vercel.com)",
       "Bash(pnpm list:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git restore:*)",
+      "Bash(pkill:*)",
+      "Bash(timeout 15s pnpm dev)",
+      "Bash(rg:*)",
+      "Bash(find:*)",
+      "Bash(pnpm remove:*)"
     ],
     "deny": []
   }

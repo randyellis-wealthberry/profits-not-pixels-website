@@ -3,15 +3,18 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Swoosh } from "@/components/ui/swoosh"
 import { MenuBarDemo } from "@/components/MenuBarDemo"
-import Testimonials from "@/components/ui/testimonials-columns-1"
-import { Footer2 } from "@/components/ui/footer2"
 import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
-import BentoGridDemo from "@/components/ui/bento-grid-demo"
 import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
-import { FAQ } from "@/components/ui/faq-section"
-import { AppleCardsCarouselDemo } from "@/components/apple-cards-carousel-demo"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
 import { FlagDebugger } from "@/components/FlagDebugger"
+import { lazy, Suspense } from "react"
+
+// Lazy load heavy components that are below the fold
+const Testimonials = lazy(() => import("@/components/ui/testimonials-columns-1"))
+const BentoGridDemo = lazy(() => import("@/components/ui/bento-grid-demo"))
+const FAQ = lazy(() => import("@/components/ui/faq-section").then(module => ({ default: module.FAQ })))
+const AppleCardsCarouselDemo = lazy(() => import("@/components/apple-cards-carousel-demo").then(module => ({ default: module.AppleCardsCarouselDemo })))
+const Footer2 = lazy(() => import("@/components/ui/footer2").then(module => ({ default: module.Footer2 })))
 
 function App() {
   // Feature flag hooks
@@ -27,7 +30,7 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center py-20">
+      <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 lg:pt-36 pb-20">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
         
         <div className="relative z-10 section-container stable-grid grid lg:grid-cols-2 gap-12 items-center layout-stable">
@@ -104,11 +107,17 @@ function App() {
 
       {/* Testimonials Section */}
       <div id="testimonials">
-        <Testimonials />
+        <Suspense fallback={<div className="py-20 bg-[#1e293b] animate-pulse"><div className="max-w-6xl mx-auto px-6"><div className="h-64 bg-gray-800/30 rounded-lg"></div></div></div>}>
+          <Testimonials />
+        </Suspense>
       </div>
 
       {/* Apple Cards Carousel Section - Feature Flag Controlled */}
-      {appleCardsEnabled && <AppleCardsCarouselDemo />}
+      {appleCardsEnabled && (
+        <Suspense fallback={<div className="py-20 bg-[#1e293b] animate-pulse"><div className="max-w-7xl mx-auto px-4"><div className="h-96 bg-gray-800/30 rounded-lg"></div></div></div>}>
+          <AppleCardsCarouselDemo />
+        </Suspense>
+      )}
 
       {/* Value Proposition Section */}
       <section id="features" className="py-20 bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
@@ -123,7 +132,9 @@ function App() {
             </p>
           </div>
 
-          <BentoGridDemo />
+          <Suspense fallback={<div className="py-8 animate-pulse"><div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6"><div className="h-32 bg-gray-800/30 rounded-lg"></div><div className="h-32 bg-gray-800/30 rounded-lg"></div><div className="h-32 bg-gray-800/30 rounded-lg"></div></div></div>}>
+            <BentoGridDemo />
+          </Suspense>
         </div>
       </section>
 
@@ -287,7 +298,9 @@ function App() {
       </section>
 
       {/* FAQ Section */}
-      <FAQ />
+      <Suspense fallback={<div className="py-20 animate-pulse"><div className="max-w-4xl mx-auto px-6"><div className="space-y-4"><div className="h-12 bg-gray-800/30 rounded-lg"></div><div className="h-12 bg-gray-800/30 rounded-lg"></div><div className="h-12 bg-gray-800/30 rounded-lg"></div></div></div></div>}>
+        <FAQ />
+      </Suspense>
 
       {/* Participate Section */}
       <section id="participate" className="py-20 bg-[#1e293b]">
@@ -367,7 +380,9 @@ function App() {
       </section>
 
       {/* Footer */}
-      <Footer2 />
+      <Suspense fallback={<div className="py-20 bg-gray-900 animate-pulse"><div className="max-w-6xl mx-auto px-6"><div className="h-32 bg-gray-800/30 rounded-lg"></div></div></div>}>
+        <Footer2 />
+      </Suspense>
       
       {/* Feature Flag Debugger (Development Only) */}
       <FlagDebugger />

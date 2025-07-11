@@ -62,7 +62,7 @@ function StackedCircularFooter() {
           </div>
           <div className="text-center">
             <p className="text-sm text-gray-400">
-              © 2024 Profits, Not Pixels. All rights reserved.
+              © 2025 Profits, Not Pixels. All rights reserved.
             </p>
           </div>
         </div>
