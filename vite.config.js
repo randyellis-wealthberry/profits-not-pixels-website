@@ -5,7 +5,11 @@ import path from "path"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), phionPlugin()],
+  plugins: [
+    react(),
+    // Only load Phion plugin in development, not in production builds
+    ...(process.env.NODE_ENV !== 'production' ? [phionPlugin()] : [])
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -25,7 +29,11 @@ export default defineConfig({
         manualChunks: (id) => {
           // Vendor libraries
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
+            // Keep React and React-DOM together for proper hook resolution
+            if (id.includes('react-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('react/') || id.includes('react/index')) {
               return 'vendor-react';
             }
             if (id.includes('@radix-ui')) {
