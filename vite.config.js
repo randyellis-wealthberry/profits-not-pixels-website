@@ -21,6 +21,7 @@ export default defineConfig({
     outDir: "dist",
     assetsDir: "assets",
     emptyOutDir: true,
+    target: 'es2018',
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
@@ -29,10 +30,8 @@ export default defineConfig({
         manualChunks: (id) => {
           // Vendor libraries
           if (id.includes('node_modules')) {
-            // Keep ALL React ecosystem together for proper hook resolution
-            if (id.includes('react-dom') || 
-                id.includes('react/') || 
-                id.includes('react/index') ||
+            // Critical: ANYTHING React-related goes into vendor-react to prevent hook context issues
+            if (id.includes('react') || 
                 id.includes('@radix-ui') ||
                 id.includes('framer-motion') ||
                 id.includes('next-themes') ||
@@ -40,14 +39,17 @@ export default defineConfig({
                 id.includes('sonner') ||
                 id.includes('vaul') ||
                 id.includes('react-hook-form') ||
-                id.includes('react-resizable-panels')) {
+                id.includes('react-resizable-panels') ||
+                id.includes('@tabler/icons-react') || 
+                id.includes('lucide-react')) {
               return 'vendor-react';
-            }
-            if (id.includes('@tabler/icons-react') || id.includes('lucide-react') || id.includes('@radix-ui/react-icons')) {
-              return 'vendor-icons';
             }
             if (id.includes('class-variance-authority') || id.includes('clsx') || id.includes('tailwind-merge')) {
               return 'vendor-utils';
+            }
+            // Phion and development-only packages
+            if (id.includes('phion') || id.includes('@21st-extension')) {
+              return null; // Don't chunk development tools
             }
             // Other vendor libraries
             return 'vendor-misc';

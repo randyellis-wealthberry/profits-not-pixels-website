@@ -11,6 +11,15 @@
     <body>
       <div id="root"></div>
       <script type="module" src="/src/main.tsx"></script>
+      <script>
+        // Prevent cross-origin frame access errors
+        window.addEventListener('error', function(e) {
+          if (e.message && e.message.includes('cross-origin frame')) {
+            e.preventDefault();
+            console.warn('Cross-origin frame access prevented (development mode)');
+          }
+        });
+      </script>
     </body>
 
   </html>
