@@ -7,24 +7,32 @@ import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
 import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
 import { FlagDebugger } from "@/components/FlagDebugger"
-import { lazy, Suspense } from "react"
+import React, { lazy } from "react"
 
 // Direct imports for critical components that need immediate loading
 import Testimonials from "@/components/ui/testimonials-columns-1"
 import { FAQ } from "@/components/ui/faq-section"
 import { Footer2 } from "@/components/ui/footer2"
 
-// Lazy load only heavy, below-the-fold components
+// Lazy load only heavy, below-the-fold components with error handling
 const BentoGridDemo = lazy(() => 
   import("@/components/ui/bento-grid-demo").then(module => {
     console.log('Bento Grid module loaded:', module);
     return module;
+  }).catch(error => {
+    console.error('Failed to load Bento Grid:', error);
+    // Return a fallback component
+    return { default: () => <div className="py-20 text-center text-gray-500">Content temporarily unavailable</div> };
   })
 )
 const AppleCardsCarouselDemo = lazy(() => 
   import("@/components/apple-cards-carousel-demo").then(module => {
     console.log('Apple Cards module loaded:', module);
     return { default: module.AppleCardsCarouselDemo };
+  }).catch(error => {
+    console.error('Failed to load Apple Cards:', error);
+    // Return a fallback component
+    return { default: () => <div className="py-20 text-center text-gray-500">Content temporarily unavailable</div> };
   })
 )
 
@@ -140,7 +148,7 @@ function App() {
 
       {/* Apple Cards Carousel Section - Feature Flag Controlled */}
       {appleCardsEnabled && (
-        <Suspense 
+        <React.Suspense 
           fallback={
             <div className="py-20 bg-[#1e293b]">
               <div className="max-w-7xl mx-auto px-4">
@@ -152,7 +160,7 @@ function App() {
           }
         >
           <AppleCardsCarouselDemo />
-        </Suspense>
+        </React.Suspense>
       )}
 
       {/* Value Proposition Section */}
@@ -168,7 +176,7 @@ function App() {
             </p>
           </div>
 
-          <Suspense 
+          <React.Suspense 
             fallback={
               <div className="py-8">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
@@ -186,7 +194,7 @@ function App() {
             }
           >
             <BentoGridDemo />
-          </Suspense>
+          </React.Suspense>
         </div>
       </section>
 

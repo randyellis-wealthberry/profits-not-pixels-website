@@ -22,15 +22,9 @@ export default defineConfig({
     assetsDir: "assets", 
     emptyOutDir: true,
     target: 'es2018',
-    // Externalize development dependencies to prevent production bundle issues  
+    // Build configuration for production
     rollupOptions: {
-      external: (id) => {
-        // Externalize development-only packages
-        if (id.includes('@21st-extension') || id.includes('phion')) {
-          return true
-        }
-        return false
-      },
+      // Remove external packages list - let bundler handle all dependencies properly
       input: {
         main: path.resolve(__dirname, "index.html"),
       },
@@ -38,9 +32,9 @@ export default defineConfig({
         manualChunks: (id) => {
           // Vendor libraries
           if (id.includes('node_modules')) {
-            // Phion and development-only packages - exclude completely from production
+            // Skip development-only packages (they should not be in production bundle anyway)
             if (id.includes('phion') || id.includes('@21st-extension')) {
-              return null;
+              return 'vendor-dev';
             }
             
             // Keep ALL React ecosystem together for proper initialization
