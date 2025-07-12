@@ -35,19 +35,9 @@ export default defineConfig({
               return null;
             }
             
-            // Core React and anything that imports React hooks
-            if (id.includes('react-dom') || 
-                id.includes('react/') || 
-                id.includes('react\\') ||
-                id.includes('/react') ||
-                id.includes('\\react') ||
-                id.includes('use-sync-external-store') ||
-                id.includes('scheduler')) {
-              return 'vendor-react-core';
-            }
-            
-            // UI libraries that depend on React
-            if (id.includes('@radix-ui') ||
+            // Keep ALL React ecosystem together for proper initialization
+            if (id.includes('react') || 
+                id.includes('@radix-ui') ||
                 id.includes('framer-motion') ||
                 id.includes('next-themes') ||
                 id.includes('cmdk') ||
@@ -56,8 +46,10 @@ export default defineConfig({
                 id.includes('react-hook-form') ||
                 id.includes('react-resizable-panels') ||
                 id.includes('@tabler/icons-react') || 
-                id.includes('lucide-react')) {
-              return 'vendor-react-ui';
+                id.includes('lucide-react') ||
+                id.includes('use-sync-external-store') ||
+                id.includes('scheduler')) {
+              return 'vendor-react';
             }
             
             // Utility libraries (safe to separate)
@@ -67,15 +59,12 @@ export default defineConfig({
               return 'vendor-utils';
             }
             
-            // Split large libraries
-            if (id.includes('@supabase') || id.includes('supabase')) {
-              return 'vendor-supabase';
-            }
+            // Analytics can be separate
             if (id.includes('@vercel/analytics')) {
               return 'vendor-analytics';
             }
             
-            // Everything else
+            // Everything else including Supabase
             return 'vendor-misc';
           }
           
