@@ -11,15 +11,17 @@ import { lazy, Suspense } from "react"
 
 // Lazy load heavy components that are below the fold
 const Testimonials = lazy(() => import("@/components/ui/testimonials-columns-1"))
-const BentoGridDemo = lazy(() => import("@/components/ui/bento-grid-demo"))
+const BentoGridDemo = lazy(() => 
+  import("@/components/ui/bento-grid-demo").then(module => {
+    console.log('Bento Grid module loaded:', module);
+    return module;
+  })
+)
 const FAQ = lazy(() => import("@/components/ui/faq-section").then(module => ({ default: module.FAQ })))
 const AppleCardsCarouselDemo = lazy(() => 
   import("@/components/apple-cards-carousel-demo").then(module => {
     console.log('Apple Cards module loaded:', module);
     return { default: module.AppleCardsCarouselDemo };
-  }).catch(error => {
-    console.error('Failed to load Apple Cards module:', error);
-    throw error;
   })
 )
 const Footer2 = lazy(() => import("@/components/ui/footer2").then(module => ({ default: module.Footer2 })))
@@ -31,11 +33,20 @@ function App() {
   const appleCardsEnabled = useFeatureFlag('apple-cards-enabled');
   
   // Debug logging
-  console.log('Feature flags:', { 
+  console.log('Feature flags debug:', { 
     appleCardsEnabled,
     ctaVariant,
-    bookCoverSrc 
+    bookCoverSrc,
+    localStorage_flags: typeof window !== 'undefined' ? {
+      'apple-cards-enabled': localStorage.getItem('flag-apple-cards-enabled'),
+      'hero-cta-variant': localStorage.getItem('flag-hero-cta-variant'),
+      'hero-book-cover': localStorage.getItem('flag-hero-book-cover')
+    } : 'server-side'
   });
+  
+  // Component render debugging
+  console.log('App render - appleCardsEnabled:', appleCardsEnabled);
+  console.log('Will render Apple Cards section:', !!appleCardsEnabled);
 
   return (
     <div className="min-h-screen bg-[#1e293b] text-white">
@@ -128,10 +139,12 @@ function App() {
       </div>
 
       {/* Apple Cards Carousel Section - Feature Flag Controlled */}
-      {appleCardsEnabled && (
+      {appleCardsEnabled ? (
         <Suspense fallback={<div className="py-20 bg-[#1e293b] animate-pulse"><div className="max-w-7xl mx-auto px-4"><div className="h-96 bg-gray-800/30 rounded-lg"></div></div></div>}>
           <AppleCardsCarouselDemo />
         </Suspense>
+      ) : (
+        console.log('Apple Cards disabled by feature flag:', appleCardsEnabled), null
       )}
 
       {/* Value Proposition Section */}
