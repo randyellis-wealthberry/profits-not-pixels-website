@@ -13,7 +13,15 @@ import { lazy, Suspense } from "react"
 const Testimonials = lazy(() => import("@/components/ui/testimonials-columns-1"))
 const BentoGridDemo = lazy(() => import("@/components/ui/bento-grid-demo"))
 const FAQ = lazy(() => import("@/components/ui/faq-section").then(module => ({ default: module.FAQ })))
-const AppleCardsCarouselDemo = lazy(() => import("@/components/apple-cards-carousel-demo").then(module => ({ default: module.AppleCardsCarouselDemo })))
+const AppleCardsCarouselDemo = lazy(() => 
+  import("@/components/apple-cards-carousel-demo").then(module => {
+    console.log('Apple Cards module loaded:', module);
+    return { default: module.AppleCardsCarouselDemo };
+  }).catch(error => {
+    console.error('Failed to load Apple Cards module:', error);
+    throw error;
+  })
+)
 const Footer2 = lazy(() => import("@/components/ui/footer2").then(module => ({ default: module.Footer2 })))
 
 function App() {
@@ -21,6 +29,13 @@ function App() {
   const { variant: ctaVariant, buttonConfig, trackConversion } = useHeroCTAVariant();
   const { bookCoverSrc } = useBookCoverVariant();
   const appleCardsEnabled = useFeatureFlag('apple-cards-enabled');
+  
+  // Debug logging
+  console.log('Feature flags:', { 
+    appleCardsEnabled,
+    ctaVariant,
+    bookCoverSrc 
+  });
 
   return (
     <div className="min-h-screen bg-[#1e293b] text-white">
