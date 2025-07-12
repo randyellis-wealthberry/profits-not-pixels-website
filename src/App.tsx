@@ -9,22 +9,24 @@ import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/
 import { FlagDebugger } from "@/components/FlagDebugger"
 import { lazy, Suspense } from "react"
 
-// Lazy load heavy components that are below the fold
-const Testimonials = lazy(() => import("@/components/ui/testimonials-columns-1"))
+// Direct imports for critical components that need immediate loading
+import Testimonials from "@/components/ui/testimonials-columns-1"
+import { FAQ } from "@/components/ui/faq-section"
+import { Footer2 } from "@/components/ui/footer2"
+
+// Lazy load only heavy, below-the-fold components
 const BentoGridDemo = lazy(() => 
   import("@/components/ui/bento-grid-demo").then(module => {
     console.log('Bento Grid module loaded:', module);
     return module;
   })
 )
-const FAQ = lazy(() => import("@/components/ui/faq-section").then(module => ({ default: module.FAQ })))
 const AppleCardsCarouselDemo = lazy(() => 
   import("@/components/apple-cards-carousel-demo").then(module => {
     console.log('Apple Cards module loaded:', module);
     return { default: module.AppleCardsCarouselDemo };
   })
 )
-const Footer2 = lazy(() => import("@/components/ui/footer2").then(module => ({ default: module.Footer2 })))
 
 function App() {
   // Feature flag hooks
@@ -133,18 +135,24 @@ function App() {
 
       {/* Testimonials Section */}
       <div id="testimonials">
-        <Suspense fallback={<div className="py-20 bg-[#1e293b] animate-pulse"><div className="max-w-6xl mx-auto px-6"><div className="h-64 bg-gray-800/30 rounded-lg"></div></div></div>}>
-          <Testimonials />
-        </Suspense>
+        <Testimonials />
       </div>
 
       {/* Apple Cards Carousel Section - Feature Flag Controlled */}
-      {appleCardsEnabled ? (
-        <Suspense fallback={<div className="py-20 bg-[#1e293b] animate-pulse"><div className="max-w-7xl mx-auto px-4"><div className="h-96 bg-gray-800/30 rounded-lg"></div></div></div>}>
+      {appleCardsEnabled && (
+        <Suspense 
+          fallback={
+            <div className="py-20 bg-[#1e293b]">
+              <div className="max-w-7xl mx-auto px-4">
+                <div className="h-96 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
+                  <div className="text-gray-500">Loading Apple Cards Carousel...</div>
+                </div>
+              </div>
+            </div>
+          }
+        >
           <AppleCardsCarouselDemo />
         </Suspense>
-      ) : (
-        console.log('Apple Cards disabled by feature flag:', appleCardsEnabled), null
       )}
 
       {/* Value Proposition Section */}
@@ -160,7 +168,23 @@ function App() {
             </p>
           </div>
 
-          <Suspense fallback={<div className="py-8 animate-pulse"><div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6"><div className="h-32 bg-gray-800/30 rounded-lg"></div><div className="h-32 bg-gray-800/30 rounded-lg"></div><div className="h-32 bg-gray-800/30 rounded-lg"></div></div></div>}>
+          <Suspense 
+            fallback={
+              <div className="py-8">
+                <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+                  <div className="h-32 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
+                    <div className="text-gray-500 text-sm">Loading...</div>
+                  </div>
+                  <div className="h-32 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
+                    <div className="text-gray-500 text-sm">Loading...</div>
+                  </div>
+                  <div className="h-32 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
+                    <div className="text-gray-500 text-sm">Loading...</div>
+                  </div>
+                </div>
+              </div>
+            }
+          >
             <BentoGridDemo />
           </Suspense>
         </div>
@@ -326,9 +350,7 @@ function App() {
       </section>
 
       {/* FAQ Section */}
-      <Suspense fallback={<div className="py-20 animate-pulse"><div className="max-w-4xl mx-auto px-6"><div className="space-y-4"><div className="h-12 bg-gray-800/30 rounded-lg"></div><div className="h-12 bg-gray-800/30 rounded-lg"></div><div className="h-12 bg-gray-800/30 rounded-lg"></div></div></div></div>}>
-        <FAQ />
-      </Suspense>
+      <FAQ />
 
       {/* Participate Section */}
       <section id="participate" className="py-20 bg-[#1e293b]">
@@ -408,9 +430,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <Suspense fallback={<div className="py-20 bg-gray-900 animate-pulse"><div className="max-w-6xl mx-auto px-6"><div className="h-32 bg-gray-800/30 rounded-lg"></div></div></div>}>
-        <Footer2 />
-      </Suspense>
+      <Footer2 />
       
       {/* Feature Flag Debugger (Development Only) */}
       <FlagDebugger />
