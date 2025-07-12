@@ -19,10 +19,18 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
-    assetsDir: "assets",
+    assetsDir: "assets", 
     emptyOutDir: true,
     target: 'es2018',
+    // Externalize development dependencies to prevent production bundle issues  
     rollupOptions: {
+      external: (id) => {
+        // Externalize development-only packages
+        if (id.includes('@21st-extension') || id.includes('phion')) {
+          return true
+        }
+        return false
+      },
       input: {
         main: path.resolve(__dirname, "index.html"),
       },

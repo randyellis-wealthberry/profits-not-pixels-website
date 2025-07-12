@@ -1,22 +1,35 @@
-import { TwentyFirstToolbar } from "@21st-extension/toolbar-react"
 import React from "react"
 
 // Only render toolbar in development with proper error handling
 export const DevToolbar = () => {
   const [shouldRender, setShouldRender] = React.useState(false)
+  const [ToolbarComponent, setToolbarComponent] = React.useState<React.ComponentType | null>(null)
 
   React.useEffect(() => {
-    // Check if we're in development and can connect to VS Code
+    // Only load in development environment
     if (import.meta.env.DEV) {
-      // Try to ping one of the ports to see if VS Code is available
-      fetch('http://localhost:5747/ping/stagewise', { method: 'GET' })
-        .then(() => setShouldRender(true))
+      // Dynamically import the toolbar to avoid production bundle issues
+      import("@21st-extension/toolbar-react")
+        .then((module) => {
+          // Try to ping one of the ports to see if VS Code is available
+          return fetch('http://localhost:5747/ping/stagewise', { method: 'GET' })
+            .then(() => {
+              setToolbarComponent(() => module.TwentyFirstToolbar)
+              setShouldRender(true)
+            })
+        })
         .catch(() => {
-          // Silently fail - VS Code not available
+          // Silently fail - either package not available or VS Code not running
           setShouldRender(false)
+          setToolbarComponent(null)
         })
     }
   }, [])
 
-  return shouldRender ? <TwentyFirstToolbar /> : null
+  // Return null for production builds or when toolbar isn't available
+  if (!import.meta.env.DEV || !shouldRender || !ToolbarComponent) {
+    return null
+  }
+
+  return <ToolbarComponent />
 }
