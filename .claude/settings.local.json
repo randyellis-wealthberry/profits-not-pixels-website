@@ -32,7 +32,10 @@
       "Bash(find:*)",
       "Bash(pnpm remove:*)",
       "WebFetch(domain:boardroombookblitz-l900zlfh0-wealthberrylabs.vercel.app)",
-      "Bash(NODE_ENV=production pnpm build)"
+      "Bash(NODE_ENV=production pnpm build)",
+      "Bash(pnpm preview:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx depcheck:*)"
     ],
     "deny": []
   }
