@@ -109,15 +109,15 @@ function App() {
       <section id="home" className={`relative min-h-screen flex items-center justify-center pb-20 ${bannerVisible ? 'pt-28 md:pt-36 lg:pt-40' : 'pt-24 md:pt-32 lg:pt-36'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
         
-        <div className="relative z-10 section-container stable-grid grid lg:grid-cols-2 gap-12 items-center layout-stable">
+        <div className="relative z-10 section-container stable-grid grid lg:grid-cols-2 gap-8 items-center layout-stable">
           {/* Left Content */}
-          <div className="space-y-8 text-center lg:text-left">
-            <div className="space-y-4">
+          <div className="space-y-6 text-center lg:text-left">
+            <div className="space-y-3">
               <Badge className="bg-[#fbbf24] text-black font-semibold px-4 py-2">
                 Transform Your Design Career
               </Badge>
               
-              <div className="space-y-4">
+              <div className="space-y-2">
                 <Swoosh size="lg" className="mx-auto lg:mx-0" />
                 <DecryptedHeroTitle />
               </div>
