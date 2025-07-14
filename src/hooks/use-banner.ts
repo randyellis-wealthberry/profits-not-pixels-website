@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 interface BannerConfig {
   id: string
@@ -10,36 +10,19 @@ interface BannerConfig {
 }
 
 interface UseBannerOptions {
-  storageKey?: string
   defaultVisible?: boolean
 }
 
 export function useBanner(config: BannerConfig, options: UseBannerOptions = {}) {
-  const { storageKey = `banner-${config.id}`, defaultVisible = true } = options
+  const { defaultVisible = true } = options
   const [isVisible, setIsVisible] = useState(defaultVisible)
-
-  // Check localStorage on mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem(storageKey)
-      if (stored === 'false') {
-        setIsVisible(false)
-      }
-    }
-  }, [storageKey])
 
   const closeBanner = () => {
     setIsVisible(false)
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(storageKey, 'false')
-    }
   }
 
   const resetBanner = () => {
     setIsVisible(true)
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(storageKey)
-    }
   }
 
   return {
@@ -61,7 +44,6 @@ export function useAnnouncementBanner() {
       type: 'announcement'
     },
     {
-      storageKey: 'global-announcement-banner',
       defaultVisible: true
     }
   )
