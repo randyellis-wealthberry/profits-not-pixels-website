@@ -70,7 +70,7 @@ function App() {
     <div className="min-h-screen bg-[#1e293b] text-white">
       {/* Global Banner */}
       {bannerVisible && (
-        <div className="fixed top-0 left-0 right-0 z-60">
+        <div className="fixed top-0 left-0 right-0 z-[9999]">
           <Banner
             variant="announcement"
             isClosable
