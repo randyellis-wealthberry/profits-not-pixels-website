@@ -109,7 +109,7 @@ function App() {
       <section id="home" className={`relative min-h-screen flex items-center justify-center pb-20 ${bannerVisible ? 'pt-28 md:pt-36 lg:pt-40' : 'pt-24 md:pt-32 lg:pt-36'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
         
-        <div className="relative z-10 section-container stable-grid grid lg:grid-cols-2 gap-8 items-center layout-stable">
+        <div className="relative z-10 section-container max-w-6xl mx-auto stable-grid grid lg:grid-cols-[3fr_2fr] gap-6 items-center layout-stable">
           {/* Left Content */}
           <div className="space-y-6 text-center lg:text-left">
             <div className="space-y-3">
