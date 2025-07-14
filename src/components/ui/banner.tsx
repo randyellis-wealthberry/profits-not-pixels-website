@@ -10,6 +10,7 @@ const bannerVariants = cva("relative w-full", {
       default: "bg-background border border-border",
       muted: "bg-muted",
       border: "border-b border-border",
+      announcement: "bg-[#fbbf24] text-black border-[#f59e0b]",
     },
     size: {
       sm: "px-4 py-2",
@@ -96,7 +97,10 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(
             {isClosable && (
               <Button
                 variant="ghost"
-                className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+                className={cn(
+                  "group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent",
+                  variant === "announcement" && "text-black hover:bg-black/10"
+                )}
                 onClick={onClose}
                 aria-label="Close banner"
               >

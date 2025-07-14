@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Banner } from "@/components/ui/banner"
 import { Swoosh } from "@/components/ui/swoosh"
 import { MenuBarDemo } from "@/components/MenuBarDemo"
 import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
 import DecryptedHeroTitle from "@/components/ui/DecryptedHeroTitle"
 import DecryptedHeader from "@/components/ui/DecryptedHeader"
 import SpotlightCard from "@/components/ui/SpotlightCard"
-import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
+import { ArrowRight, BookOpen, Star, Users, Megaphone } from "lucide-react"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
+import { useAnnouncementBanner } from "@/hooks/use-banner"
 import { FlagDebugger } from "@/components/FlagDebugger"
 import React, { lazy } from "react"
 
@@ -45,6 +47,9 @@ function App() {
   const { bookCoverSrc } = useBookCoverVariant();
   const appleCardsEnabled = useFeatureFlag('apple-cards-enabled');
   
+  // Banner hook
+  const { isVisible: bannerVisible, closeBanner, config: bannerConfig } = useAnnouncementBanner();
+  
   // Debug logging
   console.log('Feature flags debug:', { 
     appleCardsEnabled,
@@ -63,13 +68,45 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#1e293b] text-white">
+      {/* Global Banner */}
+      {bannerVisible && (
+        <div className="fixed top-0 left-0 right-0 z-60">
+          <Banner
+            variant="announcement"
+            isClosable
+            onClose={closeBanner}
+            icon={<Megaphone className="h-4 w-4" />}
+            action={
+              bannerConfig.actionText && (
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="text-black hover:bg-black/10 hover:text-black h-auto px-2 py-1 text-sm font-medium"
+                  onClick={() => {
+                    if (bannerConfig.actionUrl) {
+                      document.querySelector(bannerConfig.actionUrl)?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  {bannerConfig.actionText}
+                </Button>
+              )
+            }
+          >
+            <div className="text-sm font-medium">
+              {bannerConfig.content}
+            </div>
+          </Banner>
+        </div>
+      )}
+
       {/* Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
+      <header className={`fixed left-0 right-0 z-50 flex justify-center p-4 ${bannerVisible ? 'top-[52px]' : 'top-0'}`}>
         <MenuBarDemo />
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 lg:pt-36 pb-20">
+      <section id="home" className={`relative min-h-screen flex items-center justify-center pb-20 ${bannerVisible ? 'pt-28 md:pt-36 lg:pt-40' : 'pt-24 md:pt-32 lg:pt-36'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
         
         <div className="relative z-10 section-container stable-grid grid lg:grid-cols-2 gap-12 items-center layout-stable">
