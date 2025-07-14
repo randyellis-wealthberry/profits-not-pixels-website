@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Swoosh } from "@/components/ui/swoosh"
 import { MenuBarDemo } from "@/components/MenuBarDemo"
 import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
+import DecryptedHeroTitle from "@/components/ui/DecryptedHeroTitle"
 import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
 import { FlagDebugger } from "@/components/FlagDebugger"
@@ -79,11 +80,7 @@ function App() {
               
               <div className="space-y-4">
                 <Swoosh size="lg" className="mx-auto lg:mx-0" />
-                <h1 className="text-5xl lg:text-7xl font-light tracking-tight">
-                  PROFITS,<br />
-                  <span className="text-[#fbbf24]">NOT</span><br />
-                  PIXELS
-                </h1>
+                <DecryptedHeroTitle />
               </div>
               
               <p className="text-xl lg:text-2xl text-gray-300 max-w-lg mx-auto lg:mx-0">
