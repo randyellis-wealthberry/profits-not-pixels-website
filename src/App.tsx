@@ -5,6 +5,8 @@ import { Swoosh } from "@/components/ui/swoosh"
 import { MenuBarDemo } from "@/components/MenuBarDemo"
 import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
 import DecryptedHeroTitle from "@/components/ui/DecryptedHeroTitle"
+import DecryptedHeader from "@/components/ui/DecryptedHeader"
+import SpotlightCard from "@/components/ui/SpotlightCard"
 import { ArrowRight, BookOpen, Star, Users } from "lucide-react"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
 import { FlagDebugger } from "@/components/FlagDebugger"
@@ -165,9 +167,11 @@ function App() {
         <div className="section-container">
           <div className="text-center space-y-6 mb-16">
             <Swoosh size="md" className="mx-auto" />
-            <h2 className="text-4xl lg:text-5xl font-light">
-              Why <span className="text-[#fbbf24]">Boardroom Fluency</span> Matters
-            </h2>
+            <DecryptedHeader
+              text="Why Boardroom Fluency Matters"
+              highlightWords={["Boardroom Fluency"]}
+              triggerDelay={200}
+            />
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Stop being seen as just a "creative." Learn to speak the language of business and become an indispensable strategic partner.
             </p>
@@ -201,9 +205,11 @@ function App() {
           <div className="space-y-8">
             <div className="space-y-4">
               <Swoosh size="md" />
-              <h2 className="text-4xl lg:text-5xl font-light">
-                About the <span className="text-[#fbbf24]">Book</span>
-              </h2>
+              <DecryptedHeader
+                text="About the Book"
+                highlightWords={["Book"]}
+                triggerDelay={400}
+              />
             </div>
             
             <p className="text-lg text-gray-300">
@@ -260,17 +266,22 @@ function App() {
         <div className="section-container text-center space-y-12">
           <div className="space-y-6">
             <Swoosh size="md" className="mx-auto" />
-            <h2 className="text-4xl lg:text-5xl font-light">
-              <span className="text-[#fbbf24]">Corporate</span> Solutions
-            </h2>
+            <DecryptedHeader
+              text="Corporate Solutions"
+              highlightWords={["Corporate"]}
+              triggerDelay={600}
+            />
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Transform your entire design organization with enterprise-level training and strategic consulting.
             </p>
           </div>
 
           <div className="stable-grid grid md:grid-cols-3 gap-8 layout-stable">
-            <Card className="bg-gray-800/50 border-gray-700 p-6">
-              <CardContent className="space-y-4">
+            <SpotlightCard 
+              className="p-6" 
+              spotlightColor="rgba(251, 191, 36, 0.15)"
+            >
+              <div className="space-y-4">
                 <div className="w-12 h-12 bg-[#fbbf24] rounded-lg flex items-center justify-center">
                   <Users className="h-6 w-6 text-black" />
                 </div>
@@ -278,11 +289,14 @@ function App() {
                 <p className="text-gray-300">
                   Comprehensive workshops to elevate your design team's business acumen and strategic thinking.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </SpotlightCard>
 
-            <Card className="bg-gray-800/50 border-gray-700 p-6">
-              <CardContent className="space-y-4">
+            <SpotlightCard 
+              className="p-6" 
+              spotlightColor="rgba(251, 191, 36, 0.15)"
+            >
+              <div className="space-y-4">
                 <div className="w-12 h-12 bg-[#fbbf24] rounded-lg flex items-center justify-center">
                   <BookOpen className="h-6 w-6 text-black" />
                 </div>
@@ -290,11 +304,14 @@ function App() {
                 <p className="text-gray-300">
                   Custom consulting to align your design organization with business objectives and growth strategies.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </SpotlightCard>
 
-            <Card className="bg-gray-800/50 border-gray-700 p-6">
-              <CardContent className="space-y-4">
+            <SpotlightCard 
+              className="p-6" 
+              spotlightColor="rgba(251, 191, 36, 0.15)"
+            >
+              <div className="space-y-4">
                 <div className="w-12 h-12 bg-[#fbbf24] rounded-lg flex items-center justify-center">
                   <Star className="h-6 w-6 text-black" />
                 </div>
@@ -302,8 +319,8 @@ function App() {
                 <p className="text-gray-300">
                   Executive coaching and leadership development programs for design leaders and directors.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </SpotlightCard>
           </div>
 
           <Button 
@@ -320,9 +337,11 @@ function App() {
         <div className="section-container text-center space-y-12">
           <div className="space-y-6">
             <Swoosh size="md" className="mx-auto" />
-            <h2 className="text-4xl lg:text-5xl font-light">
-              About the <span className="text-[#fbbf24]">Author</span>
-            </h2>
+            <DecryptedHeader
+              text="About the Author"
+              highlightWords={["Author"]}
+              triggerDelay={800}
+            />
           </div>
 
           <Card className="bg-gray-800/50 border-gray-700 p-8">
@@ -362,9 +381,11 @@ function App() {
         <div className="section-container text-center space-y-8">
           <div className="space-y-6">
             <Swoosh size="md" className="mx-auto" />
-            <h2 className="text-4xl lg:text-5xl font-light">
-              <span className="text-[#fbbf24]">Participate</span> in the Movement
-            </h2>
+            <DecryptedHeader
+              text="Participate in the Movement"
+              highlightWords={["Participate"]}
+              triggerDelay={1000}
+            />
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Join a community of designers who are transforming how the industry approaches business strategy.
             </p>
@@ -409,9 +430,11 @@ function App() {
         <div className="section-container text-center space-y-8">
           <Swoosh size="lg" className="mx-auto" />
           
-          <h2 className="text-4xl lg:text-5xl font-light">
-            Ready to Master <span className="text-[#fbbf24]">Boardroom Fluency</span>?
-          </h2>
+          <DecryptedHeader
+            text="Ready to Master Boardroom Fluency?"
+            highlightWords={["Boardroom Fluency"]}
+            triggerDelay={1200}
+          />
           
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Join thousands of designers who have transformed their careers from creative executors to strategic leaders.
