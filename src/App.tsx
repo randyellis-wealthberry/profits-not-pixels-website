@@ -189,7 +189,7 @@ function App() {
             <div className="py-20 bg-[#1e293b]">
               <div className="max-w-7xl mx-auto px-4">
                 <div className="h-96 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
-                  <div className="text-gray-500">Loading Apple Cards Carousel...</div>
+                  <div className="text-gray-500">Loading...</div>
                 </div>
               </div>
             </div>

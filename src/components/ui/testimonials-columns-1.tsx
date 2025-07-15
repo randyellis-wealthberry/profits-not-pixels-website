@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import DecryptedHeader from './DecryptedHeader';
 
 export const TestimonialsColumn = (props: {
   className?: string;
@@ -126,9 +127,14 @@ const Testimonials = () => {
             <div className="bg-[#fbbf24] text-black font-semibold px-4 py-2 rounded-lg">Testimonials</div>
           </div>
 
-          <h2 className="text-4xl lg:text-5xl font-light text-white">
-            What <span className="text-[#fbbf24]">Readers</span> Say
-          </h2>
+          <DecryptedHeader
+            text="What Readers Say"
+            highlightWords={["Readers"]}
+            className="text-4xl lg:text-5xl font-light"
+            triggerDelay={300}
+            animationSpeed={60}
+            maxIterations={12}
+          />
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             See what designers are saying about transforming their careers from creative executors to strategic leaders.
           </p>
