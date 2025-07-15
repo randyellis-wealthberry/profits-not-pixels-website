@@ -88,7 +88,7 @@ export const useHeroCTAVariant = () => {
       case 'coming-soon':
         return {
           text: 'Coming Soon',
-          className: 'bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold text-lg',
+          className: 'bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg',
           disabled: false
         };
       case 'pre-order':
@@ -106,7 +106,7 @@ export const useHeroCTAVariant = () => {
       default:
         return {
           text: 'Coming Soon',
-          className: 'bg-[#fbbf24] hover:bg-[#f59e0b] text-black font-semibold text-lg',
+          className: 'bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg',
           disabled: false
         };
     }

@@ -81,7 +81,7 @@ function App() {
                 <Button 
                   variant="ghost" 
                   size="sm"
-                  className="text-black hover:bg-black/10 hover:text-black h-auto px-2 py-1 text-sm font-medium"
+                  className="text-white hover:bg-white/10 hover:text-white h-auto px-2 py-1 text-sm font-medium"
                   onClick={() => {
                     if (bannerConfig.actionUrl) {
                       document.querySelector(bannerConfig.actionUrl)?.scrollIntoView({ behavior: 'smooth' });
