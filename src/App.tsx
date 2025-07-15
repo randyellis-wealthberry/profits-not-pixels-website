@@ -8,6 +8,7 @@ import { LogoCarouselDemo } from "@/components/ui/logo-carousel"
 import DecryptedHeroTitle from "@/components/ui/DecryptedHeroTitle"
 import DecryptedHeader from "@/components/ui/DecryptedHeader"
 import SpotlightCard from "@/components/ui/SpotlightCard"
+import BoardroomFluencyFeatures from "@/components/mvpblocks/feature-2"
 import { ArrowRight, BookOpen, Star, Users, Megaphone } from "lucide-react"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
 import { useAnnouncementBanner } from "@/hooks/use-banner"
@@ -20,16 +21,6 @@ import { FAQ } from "@/components/ui/faq-section"
 import { Footer2 } from "@/components/ui/footer2"
 
 // Lazy load only heavy, below-the-fold components with error handling
-const BentoGridDemo = lazy(() => 
-  import("@/components/ui/bento-grid-demo").then(module => {
-    console.log('Bento Grid module loaded:', module);
-    return module;
-  }).catch(error => {
-    console.error('Failed to load Bento Grid:', error);
-    // Return a fallback component
-    return { default: () => <div className="py-20 text-center text-gray-500">Content temporarily unavailable</div> };
-  })
-)
 const AppleCardsCarouselDemo = lazy(() => 
   import("@/components/apple-cards-carousel-demo").then(module => {
     console.log('Apple Cards module loaded:', module);
@@ -199,42 +190,8 @@ function App() {
         </React.Suspense>
       )}
 
-      {/* Value Proposition Section */}
-      <section id="features" className="py-20 bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
-        <div className="section-container">
-          <div className="text-center space-y-6 mb-16">
-            <Swoosh size="md" className="mx-auto" />
-            <DecryptedHeader
-              text="Why Boardroom Fluency Matters"
-              highlightWords={["Boardroom Fluency"]}
-              triggerDelay={200}
-            />
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Stop being seen as just a "creative." Learn to speak the language of business and become an indispensable strategic partner.
-            </p>
-          </div>
-
-          <React.Suspense 
-            fallback={
-              <div className="py-8">
-                <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-                  <div className="h-32 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
-                    <div className="text-gray-500 text-sm">Loading...</div>
-                  </div>
-                  <div className="h-32 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
-                    <div className="text-gray-500 text-sm">Loading...</div>
-                  </div>
-                  <div className="h-32 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
-                    <div className="text-gray-500 text-sm">Loading...</div>
-                  </div>
-                </div>
-              </div>
-            }
-          >
-            <BentoGridDemo />
-          </React.Suspense>
-        </div>
-      </section>
+      {/* Boardroom Fluency Features Section */}
+      <BoardroomFluencyFeatures />
 
       {/* About the Book Section */}
       <section id="about" className="py-20 bg-[#0f172a]">
