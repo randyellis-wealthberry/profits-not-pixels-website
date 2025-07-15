@@ -31,13 +31,13 @@ const backVariants = {
 }
 
 const glowVariants = {
-  initial: { opacity: 0, scale: 0.9 },
+  initial: { opacity: 0, scale: 0.8 },
   hover: {
-    opacity: 0.4,
-    scale: 1.2,
+    opacity: 0.6,
+    scale: 1.5,
     transition: {
-      opacity: { duration: 0.3, ease: [0.4, 0, 0.2, 1] as const },
-      scale: { duration: 0.3, type: "spring" as const, stiffness: 200, damping: 30 },
+      opacity: { duration: 0.4, ease: [0.4, 0, 0.2, 1] as const },
+      scale: { duration: 0.4, type: "spring" as const, stiffness: 250, damping: 25 },
     },
   },
 }
@@ -45,9 +45,9 @@ const glowVariants = {
 const navGlowVariants = {
   initial: { opacity: 0 },
   hover: {
-    opacity: 0.3,
+    opacity: 0.4,
     transition: {
-      duration: 0.4,
+      duration: 0.5,
       ease: [0.4, 0, 0.2, 1] as const,
     },
   },
@@ -78,8 +78,8 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
         <motion.div
           className={`absolute -inset-2 bg-gradient-radial from-transparent ${
             isDarkTheme
-              ? "via-blue-400/15 via-30% via-purple-400/15 via-60% via-red-400/15 via-90%"
-              : "via-blue-400/10 via-30% via-purple-400/10 via-60% via-red-400/10 via-90%"
+              ? "via-blue-400/20 via-30% via-purple-400/20 via-60% via-red-400/20 via-90%"
+              : "via-blue-400/15 via-30% via-purple-400/15 via-60% via-red-400/15 via-90%"
           } to-transparent rounded-3xl z-0 pointer-events-none`}
           variants={navGlowVariants}
         />
@@ -107,7 +107,7 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                       animate={isActive ? "hover" : "initial"}
                       style={{
                         background: item.gradient,
-                        opacity: isActive ? 0.6 : 0,
+                        opacity: isActive ? 0.8 : 0,
                         borderRadius: "16px",
                       }}
                     />
