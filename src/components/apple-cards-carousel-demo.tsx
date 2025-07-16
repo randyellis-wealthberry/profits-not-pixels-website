@@ -1,6 +1,8 @@
 "use client";
 
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
+import { Swoosh } from "@/components/ui/swoosh";
+import DecryptedHeader from "@/components/ui/DecryptedHeader";
 
 export function AppleCardsCarouselDemo() {
   const cards = data.map((card, index) => (
@@ -9,9 +11,15 @@ export function AppleCardsCarouselDemo() {
 
   return (
     <div className="w-full h-full py-20">
-      <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
-        Master Boardroom Fluency.
-      </h2>
+      <div className="max-w-7xl mx-auto px-4 space-y-6">
+        <Swoosh size="md" className="mx-auto" />
+        <DecryptedHeader
+          text="Master Boardroom Fluency"
+          highlightWords={["Boardroom Fluency"]}
+          triggerDelay={500}
+          className="text-4xl lg:text-5xl font-light text-center"
+        />
+      </div>
       <Carousel items={cards} />
     </div>
   );
