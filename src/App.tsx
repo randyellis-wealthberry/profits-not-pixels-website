@@ -89,7 +89,7 @@ function App() {
       )}
 
       {/* Navigation Header */}
-      <header className={`fixed left-0 right-0 z-50 flex justify-center p-4 shadow-[0_4px_20px_rgba(0,0,0,0.3)] bg-[#1e293b]/95 backdrop-blur-sm ${bannerVisible ? 'top-[52px]' : 'top-0'}`}>
+      <header className={`fixed left-0 right-0 z-50 flex justify-center p-4 ${bannerVisible ? 'top-[52px]' : 'top-0'}`}>
         <MenuBarDemo />
       </header>
 
