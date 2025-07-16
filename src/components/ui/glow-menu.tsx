@@ -69,7 +69,7 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
       <motion.nav
         ref={ref}
         className={cn(
-          "p-2 rounded-2xl bg-gradient-to-b from-slate-800/80 to-slate-900/40 backdrop-blur-lg border border-slate-600/40 shadow-lg relative overflow-hidden",
+          "p-2 rounded-2xl bg-gradient-to-b from-slate-800/80 to-slate-900/40 backdrop-blur-lg border border-slate-600/40 relative overflow-hidden",
           className,
         )}
         initial="initial"
