@@ -38,7 +38,7 @@ export function useAnnouncementBanner() {
   return useBanner(
     {
       id: 'global-announcement',
-      content: '🎉 New Feature: Master Boardroom Fluency with our updated framework!',
+      content: 'New Feature: Master Boardroom Fluency with our updated framework!',
       actionText: 'Learn More',
       actionUrl: '#features',
       type: 'announcement'

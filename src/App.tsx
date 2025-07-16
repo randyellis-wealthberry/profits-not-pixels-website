@@ -67,13 +67,13 @@ function App() {
             variant="announcement"
             isClosable
             onClose={closeBanner}
-            icon={<Megaphone className="h-4 w-4" />}
+            icon={<Megaphone className="h-6 w-6" />}
             action={
               bannerConfig.actionText && (
                 <Button 
-                  variant="ghost" 
-                  size="sm"
-                  className="text-white hover:bg-white/10 hover:text-white h-auto px-2 py-1 text-sm font-medium"
+                  variant="outline" 
+                  size="default"
+                  className="text-white border-white/30 hover:bg-white hover:text-blue-600 font-semibold px-4 py-2"
                   onClick={() => {
                     if (bannerConfig.actionUrl) {
                       document.querySelector(bannerConfig.actionUrl)?.scrollIntoView({ behavior: 'smooth' });
