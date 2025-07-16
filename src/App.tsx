@@ -100,8 +100,8 @@ function App() {
       {/* Hero Section */}
       <section id="home" className={`relative min-h-screen flex items-center justify-center pb-20 overflow-hidden ${bannerVisible ? 'pt-28 md:pt-36 lg:pt-40' : 'pt-24 md:pt-32 lg:pt-36'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
-        <Boxes className="absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b]/80 via-[#1e293b]/90 to-[#0f172a]/95 z-5" />
+        <Boxes className="absolute inset-0 z-1" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b]/30 via-[#1e293b]/50 to-[#0f172a]/70 z-2" />
         
         <div className="relative z-10 section-container max-w-6xl mx-auto stable-grid grid lg:grid-cols-[3fr_2fr] gap-6 items-center layout-stable">
           {/* Left Content */}
