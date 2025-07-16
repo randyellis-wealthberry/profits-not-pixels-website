@@ -9,30 +9,18 @@ import DecryptedHeroTitle from "@/components/ui/DecryptedHeroTitle"
 import DecryptedHeader from "@/components/ui/DecryptedHeader"
 import SpotlightCard from "@/components/ui/SpotlightCard"
 import BoardroomFluencyFeatures from "@/components/mvpblocks/feature-3"
-import { CanvasBackground } from "@/components/ui/canvas-background"
 import { ArrowRight, BookOpen, Star, Users, Megaphone } from "lucide-react"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
 import { useAnnouncementBanner } from "@/hooks/use-banner"
 import { FlagDebugger } from "@/components/FlagDebugger"
-import React, { lazy, useEffect } from "react"
+import { useEffect } from "react"
 import { cleanupSharedObserver } from "@/hooks/use-intersection-observer"
 
 // Direct imports for critical components that need immediate loading
 import Testimonials from "@/components/ui/testimonials-columns-1"
 import { FAQ } from "@/components/ui/faq-section"
 import { Footer2 } from "@/components/ui/footer2"
-
-// Lazy load only heavy, below-the-fold components with error handling
-const AppleCardsCarouselDemo = lazy(() => 
-  import("@/components/apple-cards-carousel-demo").then(module => {
-    console.log('Apple Cards module loaded:', module);
-    return { default: module.AppleCardsCarouselDemo };
-  }).catch(error => {
-    console.error('Failed to load Apple Cards:', error);
-    // Return a fallback component
-    return { default: () => <div className="py-20 text-center text-gray-500">Content temporarily unavailable</div> };
-  })
-)
+import { AppleCardsCarouselDemo } from "@/components/apple-cards-carousel-demo"
 
 function App() {
   // Feature flag hooks
@@ -108,7 +96,6 @@ function App() {
       {/* Hero Section */}
       <section id="home" className={`relative min-h-screen flex items-center justify-center pb-20 overflow-hidden ${bannerVisible ? 'pt-28 md:pt-36 lg:pt-40' : 'pt-24 md:pt-32 lg:pt-36'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
-        <CanvasBackground className="absolute inset-0 z-1" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b]/30 via-[#1e293b]/50 to-[#0f172a]/70 z-2 pointer-events-none" />
         
         <div className="relative z-10 section-container max-w-6xl mx-auto stable-grid grid lg:grid-cols-[3fr_2fr] gap-6 items-center layout-stable">
@@ -189,21 +176,7 @@ function App() {
       </div>
 
       {/* Apple Cards Carousel Section - Feature Flag Controlled */}
-      {appleCardsEnabled && (
-        <React.Suspense 
-          fallback={
-            <div className="py-20 bg-[#1e293b]">
-              <div className="max-w-7xl mx-auto px-4">
-                <div className="h-96 bg-gray-800/30 rounded-lg animate-pulse flex items-center justify-center">
-                  <div className="text-gray-500">Loading...</div>
-                </div>
-              </div>
-            </div>
-          }
-        >
-          <AppleCardsCarouselDemo />
-        </React.Suspense>
-      )}
+      {appleCardsEnabled && <AppleCardsCarouselDemo />}
 
       {/* Boardroom Fluency Features Section */}
       <BoardroomFluencyFeatures />

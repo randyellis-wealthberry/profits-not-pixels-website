@@ -3,24 +3,56 @@
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 import { Swoosh } from "@/components/ui/swoosh";
 import DecryptedHeader from "@/components/ui/DecryptedHeader";
+import { useEffect } from "react";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 export function AppleCardsCarouselDemo() {
+  const { ref, isIntersecting } = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: '200px', // Start loading when 200px away
+    triggerOnce: true
+  });
+
+  // Preload images for faster loading when component becomes visible
+  useEffect(() => {
+    if (isIntersecting) {
+      const imageUrls = data.map(card => card.src);
+      imageUrls.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+  }, [isIntersecting]);
+
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} />
   ));
 
   return (
-    <div className="w-full h-full py-20">
-      <div className="max-w-7xl mx-auto px-4 space-y-6">
-        <Swoosh size="md" className="mx-auto" />
-        <DecryptedHeader
-          text="Master Boardroom Fluency"
-          highlightWords={["Boardroom Fluency"]}
-          triggerDelay={500}
-          className="text-4xl lg:text-5xl font-light text-center"
-        />
-      </div>
-      <Carousel items={cards} />
+    <div ref={ref} className="w-full h-full py-20">
+      {isIntersecting ? (
+        <>
+          <div className="max-w-7xl mx-auto px-4 space-y-6">
+            <Swoosh size="md" className="mx-auto" />
+            <DecryptedHeader
+              text="Master Boardroom Fluency"
+              highlightWords={["Boardroom Fluency"]}
+              triggerDelay={500}
+              className="text-4xl lg:text-5xl font-light text-center"
+            />
+          </div>
+          <Carousel items={cards} />
+        </>
+      ) : (
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="h-96 bg-gray-800/20 rounded-lg animate-pulse flex items-center justify-center">
+            <div className="text-center space-y-2">
+              <div className="w-8 h-8 border-2 border-gray-600 border-t-amber-500 rounded-full animate-spin mx-auto"></div>
+              <div className="text-sm text-gray-500">Loading interactive content...</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
