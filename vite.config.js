@@ -46,11 +46,12 @@ export default defineConfig({
               return 'vendor-dev';
             }
             
-            // Core React ecosystem (essential for startup)
-            if ((id.includes('react') && !id.includes('react-hook-form') && !id.includes('@radix-ui')) ||
+            // Core React ecosystem (essential for startup) - INCLUDE Radix UI here
+            if ((id.includes('react') && !id.includes('react-hook-form')) ||
                 id.includes('react-dom') ||
                 id.includes('use-sync-external-store') ||
-                id.includes('scheduler')) {
+                id.includes('scheduler') ||
+                id.includes('@radix-ui')) {  // Move Radix UI to React core chunk
               return 'vendor-react-core';
             }
             
