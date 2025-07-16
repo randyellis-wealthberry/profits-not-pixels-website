@@ -1,10 +1,5 @@
 "use client";
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import {
   IconArrowNarrowLeft,
   IconArrowNarrowRight,
