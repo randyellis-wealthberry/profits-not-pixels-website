@@ -107,16 +107,16 @@ function App() {
           {/* Left Content */}
           <div className="space-y-6 text-center lg:text-left">
             <div className="space-y-3">
-              <Badge className="bg-[#fbbf24] text-black font-semibold px-4 py-2">
+              <Badge className="bg-[#fbbf24] text-black font-semibold px-4 py-2 pointer-events-none">
                 Transform Your Design Career
               </Badge>
               
-              <div className="space-y-2">
+              <div className="space-y-2 pointer-events-none">
                 <Swoosh size="lg" className="mx-auto lg:mx-0" />
                 <DecryptedHeroTitle />
               </div>
               
-              <p className="text-xl lg:text-2xl text-gray-300 max-w-lg mx-auto lg:mx-0">
+              <p className="text-xl lg:text-2xl text-gray-300 max-w-lg mx-auto lg:mx-0 pointer-events-none">
                 A Guide for Designers to Shift from Visual Appeal to Boardroom Fluency
               </p>
             </div>
@@ -142,7 +142,7 @@ function App() {
               </Button>
             </div>
 
-            <div className="flex items-center justify-center lg:justify-start gap-6 text-sm text-gray-400">
+            <div className="flex items-center justify-center lg:justify-start gap-6 text-sm text-gray-400 pointer-events-none">
               <div className="flex items-center gap-2">
                 <Star className="h-4 w-4 fill-[#fbbf24] text-[#fbbf24]" />
                 <span>4.9/5 Rating</span>
@@ -157,7 +157,7 @@ function App() {
           {/* Right Content - Book Cover */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative book-cover-container">
-              <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6"></div>
+              <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6 pointer-events-none"></div>
               <img
                 src={bookCoverSrc}
                 alt="Profits Not Pixels Book Cover"
