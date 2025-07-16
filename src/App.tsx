@@ -125,7 +125,7 @@ function App() {
               </div>
               
               <p className="text-xl lg:text-2xl text-gray-300 max-w-lg mx-auto lg:mx-0 pointer-events-none">
-                A Guide for Designers to Shift from Visual Appeal to Boardroom Fluency
+                A Guide for Designers to Shift from<br />Visual Appeal to Boardroom Fluency
               </p>
             </div>
 

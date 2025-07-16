@@ -48,13 +48,15 @@ export const CanvasBackground = React.memo(({ className }: CanvasBackgroundProps
     // Recreate the original CSS transform exactly
     ctx.save();
     
-    // Original CSS transform: translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675)
-    // Plus positioning: absolute -top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 p-4
+    // Original CSS: absolute -top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 p-4 + transform
+    // CSS transform: translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675)
     
-    // Apply positioning transforms
-    ctx.translate(canvas.width * 0.25, -canvas.height * 0.25); // left-1/4, -top-1/4
-    ctx.translate(-canvas.width * 0.5, -canvas.height * 0.5);   // -translate-x-1/2 -translate-y-1/2
-    ctx.translate(-canvas.width * 0.4, -canvas.height * 0.6);   // translate(-40%,-60%)
+    // First apply positioning (combine all translations)
+    const totalTranslateX = canvas.width * 0.25 - canvas.width * 0.5 - canvas.width * 0.4;
+    const totalTranslateY = -canvas.height * 0.25 - canvas.height * 0.5 - canvas.height * 0.6;
+    
+    // Apply all positioning at once
+    ctx.translate(totalTranslateX, totalTranslateY);
     
     // Apply the main transform
     const skewXRad = -48 * Math.PI / 180;
@@ -62,7 +64,6 @@ export const CanvasBackground = React.memo(({ className }: CanvasBackgroundProps
     const scale = 0.675;
     
     // Create the full transformation matrix
-    // Matrix for: scale * skewX * skewY
     const a = scale;                            // scale x
     const b = Math.tan(skewYRad) * scale;      // skew y 
     const c = Math.tan(skewXRad) * scale;      // skew x
@@ -72,12 +73,11 @@ export const CanvasBackground = React.memo(({ className }: CanvasBackgroundProps
     
     ctx.transform(a, b, c, d, e, f);
     
-    // Performance optimization: Calculate visible bounds
-    const margin = 200;
-    const visibleStartX = Math.max(0, Math.floor(-margin / cellWidth));
-    const visibleEndX = Math.min(cols, Math.ceil((canvas.width + margin) / cellWidth));
-    const visibleStartY = Math.max(0, Math.floor(-margin / cellHeight));
-    const visibleEndY = Math.min(rows, Math.ceil((canvas.height + margin) / cellHeight));
+    // Use full grid range but with performance check
+    const visibleStartX = 0;
+    const visibleEndX = Math.min(cols, 150); // Limit to manageable size
+    const visibleStartY = 0;
+    const visibleEndY = Math.min(rows, 100); // Limit to manageable size
     
     // Cache style strings for better performance
     const defaultFillStyle = 'rgba(15, 23, 42, 0.2)';
@@ -144,34 +144,41 @@ export const CanvasBackground = React.memo(({ className }: CanvasBackgroundProps
     // Transform mouse coordinates to match grid coordinate space
     // Need to reverse all the transforms we apply to the grid
     
-    // Reverse the positioning transforms first
     let transformedX = screenX;
     let transformedY = screenY;
     
-    // Reverse translate(-40%,-60%)
-    transformedX += canvas.width * 0.4;
-    transformedY += canvas.height * 0.6;
+    // Reverse the combined translation
+    const totalTranslateX = canvas.width * 0.25 - canvas.width * 0.5 - canvas.width * 0.4;
+    const totalTranslateY = -canvas.height * 0.25 - canvas.height * 0.5 - canvas.height * 0.6;
     
-    // Reverse -translate-x-1/2 -translate-y-1/2
-    transformedX += canvas.width * 0.5;
-    transformedY += canvas.height * 0.5;
-    
-    // Reverse left-1/4, -top-1/4
-    transformedX -= canvas.width * 0.25;
-    transformedY -= (-canvas.height * 0.25);
+    transformedX -= totalTranslateX;
+    transformedY -= totalTranslateY;
     
     // Reverse the scale and skew transform (approximate inverse)
     const scale = 0.675;
     const skewXRad = -48 * Math.PI / 180;
     const skewYRad = 14 * Math.PI / 180;
     
-    // Apply inverse scale
-    transformedX = transformedX / scale;
-    transformedY = transformedY / scale;
+    // Apply inverse transform matrix (simplified approach)
+    // For a matrix [a, b, c, d], the inverse is [d, -b, -c, a] / (ad - bc)
+    const a = scale;
+    const b = Math.tan(skewYRad) * scale;
+    const c = Math.tan(skewXRad) * scale;
+    const d = scale;
+    const det = a * d - b * c;
     
-    // Approximate inverse skew (simplified)
-    transformedX = transformedX - (transformedY * Math.tan(skewXRad));
-    transformedY = transformedY - (transformedX * Math.tan(skewYRad));
+    if (Math.abs(det) > 0.001) {
+      const invA = d / det;
+      const invB = -b / det;
+      const invC = -c / det;
+      const invD = a / det;
+      
+      const newX = transformedX * invA + transformedY * invC;
+      const newY = transformedX * invB + transformedY * invD;
+      
+      transformedX = newX;
+      transformedY = newY;
+    }
     
     mousePositionRef.current = {
       x: transformedX,
