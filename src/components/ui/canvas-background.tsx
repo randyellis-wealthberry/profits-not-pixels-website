@@ -15,29 +15,29 @@ export const CanvasBackground = React.memo(({ className }: CanvasBackgroundProps
   const isInitialized = useRef(false);
   const [canvasError, setCanvasError] = React.useState(false);
   
-  const colors = [
-    "#fbbf24",
-    "#f59e0b", 
-    "#d97706",
-    "#92400e",
-    "#451a03",
-    "#a16207",
-    "#78350f"
-  ];
+  // Single subtle color for less distraction
+  const hoverColor = "#fbbf24"; // Consistent amber color
+  const maxOpacity = 0.15; // Much more subtle than before (was 1.0)
+
+  // Easing function for smoother transitions
+  const easeOutCubic = useCallback((t: number) => {
+    return 1 - Math.pow(1 - t, 3);
+  }, []);
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+    : false;
 
   const gridConfig = {
     rows: 150,     // Restore original
     cols: 100,     // Restore original
     cellWidth: 64, // Match original: h-8 w-16 = 32px height, 64px width
     cellHeight: 32,
-    borderOpacity: 0.4,
-    hoverRadius: 120,
+    borderOpacity: 0.25, // Reduced border opacity too
+    hoverRadius: prefersReducedMotion ? 40 : 80,     // Even smaller radius for reduced motion
     animationSpeed: 0.02
   };
-
-  const getRandomColor = useCallback(() => {
-    return colors[Math.floor(Math.random() * colors.length)];
-  }, [colors]);
 
   const drawGrid = useCallback((ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -93,11 +93,12 @@ export const CanvasBackground = React.memo(({ className }: CanvasBackgroundProps
         const distance = Math.sqrt((mouseX - x) ** 2 + (mouseY - y) ** 2);
         const isHovered = distance < hoverRadius;
         
-        // Draw cell background
-        if (isHovered) {
-          const intensity = Math.max(0, 1 - distance / hoverRadius);
-          const alpha = Math.floor(intensity * 255).toString(16).padStart(2, '0');
-          ctx.fillStyle = getRandomColor() + alpha;
+        // Draw cell background with subtle, eased hover effect
+        if (isHovered && !prefersReducedMotion) {
+          const rawIntensity = Math.max(0, 1 - distance / hoverRadius);
+          const easedIntensity = easeOutCubic(rawIntensity); // Smoother falloff
+          const opacity = easedIntensity * maxOpacity; // Much more subtle
+          ctx.fillStyle = `rgba(251, 191, 36, ${opacity})`; // Convert hex to rgba with low opacity
           ctx.fillRect(x, y, cellWidth, cellHeight);
         } else {
           ctx.fillStyle = defaultFillStyle;
@@ -128,11 +129,11 @@ export const CanvasBackground = React.memo(({ className }: CanvasBackgroundProps
       }
     }
     ctx.restore();
-  }, [getRandomColor]);
+  }, [hoverColor, maxOpacity, easeOutCubic, prefersReducedMotion]);
 
   const handleMouseMove = useCallback((event: MouseEvent) => {
     const now = performance.now();
-    if (now - lastMouseUpdate.current < 16) return; // Throttle to ~60fps
+    if (now - lastMouseUpdate.current < 33) return; // Throttle to ~30fps for less distraction
     
     const canvas = canvasRef.current;
     if (!canvas) return;
