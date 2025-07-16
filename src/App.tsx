@@ -19,7 +19,6 @@ import React, { lazy } from "react"
 import Testimonials from "@/components/ui/testimonials-columns-1"
 import { FAQ } from "@/components/ui/faq-section"
 import { Footer2 } from "@/components/ui/footer2"
-import { MagicBentoDemo } from "@/components/magic-bento-demo"
 
 // Lazy load only heavy, below-the-fold components with error handling
 const AppleCardsCarouselDemo = lazy(() => 
@@ -326,9 +325,6 @@ function App() {
           </Button>
         </div>
       </section>
-
-      {/* Strategic Skills Bento Grid Section */}
-      <MagicBentoDemo />
 
       {/* About the Author Section */}
       <section id="author" className="py-20 bg-gradient-to-t from-[#1e293b] to-[#0f172a]">
