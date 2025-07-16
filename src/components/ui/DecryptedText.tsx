@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer'
 
 interface DecryptedTextProps {
   text: string
@@ -36,10 +37,16 @@ export default function DecryptedText({
   const [revealedIndices, setRevealedIndices] = useState(new Set<number>())
   const [hasAnimated, setHasAnimated] = useState(false)
   const containerRef = useRef<HTMLSpanElement>(null)
+  const { ref: intersectionRef, isIntersecting } = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true,
+    delay: 0
+  })
 
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>
+    let animationFrame: number
     let currentIteration = 0
+    let lastFrameTime = 0
 
     const getNextIndex = (revealedSet: Set<number>) => {
       const textLength = text.length
@@ -111,9 +118,8 @@ export default function DecryptedText({
       }
     }
 
-    if (isHovering) {
-      setIsScrambling(true)
-      interval = setInterval(() => {
+    const animate = (currentTime: number) => {
+      if (currentTime - lastFrameTime >= speed) {
         setRevealedIndices((prevRevealed) => {
           if (sequential) {
             if (prevRevealed.size < text.length) {
@@ -123,7 +129,6 @@ export default function DecryptedText({
               setDisplayText(shuffleText(text, newRevealed))
               return newRevealed
             } else {
-              clearInterval(interval)
               setIsScrambling(false)
               return prevRevealed
             }
@@ -131,14 +136,25 @@ export default function DecryptedText({
             setDisplayText(shuffleText(text, prevRevealed))
             currentIteration++
             if (currentIteration >= maxIterations) {
-              clearInterval(interval)
               setIsScrambling(false)
               setDisplayText(text)
+              return prevRevealed
             }
             return prevRevealed
           }
         })
-      }, speed)
+        lastFrameTime = currentTime
+      }
+      
+      if (isHovering && (sequential ? revealedIndices.size < text.length : currentIteration < maxIterations)) {
+        animationFrame = requestAnimationFrame(animate)
+      }
+    }
+
+    if (isHovering) {
+      setIsScrambling(true)
+      lastFrameTime = 0
+      animationFrame = requestAnimationFrame(animate)
     } else {
       setDisplayText(text)
       setRevealedIndices(new Set())
@@ -146,7 +162,7 @@ export default function DecryptedText({
     }
 
     return () => {
-      if (interval) clearInterval(interval)
+      if (animationFrame) cancelAnimationFrame(animationFrame)
     }
   }, [
     isHovering,
@@ -160,33 +176,11 @@ export default function DecryptedText({
   ])
 
   useEffect(() => {
-    if (animateOn !== 'view') return
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setIsHovering(true)
-          setHasAnimated(true)
-        }
-      })
+    if (animateOn === 'view' && isIntersecting && !hasAnimated) {
+      setIsHovering(true)
+      setHasAnimated(true)
     }
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    }
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
-    const currentRef = containerRef.current
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef)
-    }
-  }, [animateOn, hasAnimated])
+  }, [animateOn, isIntersecting, hasAnimated])
 
   const hoverProps =
     animateOn === 'hover'
@@ -198,8 +192,16 @@ export default function DecryptedText({
 
   return (
     <motion.span
-      ref={containerRef}
+      ref={(el) => {
+        // Use Object.assign to avoid read-only property issue
+        Object.assign(containerRef, { current: el })
+        if (animateOn === 'view') intersectionRef(el)
+      }}
       className={`inline-block whitespace-pre-wrap ${parentClassName}`}
+      style={{
+        willChange: isScrambling ? 'contents' : 'auto',
+        transform: 'translateZ(0)' // Force GPU layer
+      }}
       {...hoverProps}
       {...props}
     >

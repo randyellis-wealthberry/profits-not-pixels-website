@@ -9,12 +9,13 @@ import DecryptedHeroTitle from "@/components/ui/DecryptedHeroTitle"
 import DecryptedHeader from "@/components/ui/DecryptedHeader"
 import SpotlightCard from "@/components/ui/SpotlightCard"
 import BoardroomFluencyFeatures from "@/components/mvpblocks/feature-3"
-import { Boxes } from "@/components/ui/background-boxes"
+import { CanvasBackground } from "@/components/ui/canvas-background"
 import { ArrowRight, BookOpen, Star, Users, Megaphone } from "lucide-react"
 import { useHeroCTAVariant, useBookCoverVariant, useFeatureFlag } from "@/hooks/use-feature-flags"
 import { useAnnouncementBanner } from "@/hooks/use-banner"
 import { FlagDebugger } from "@/components/FlagDebugger"
-import React, { lazy } from "react"
+import React, { lazy, useEffect } from "react"
+import { cleanupSharedObserver } from "@/hooks/use-intersection-observer"
 
 // Direct imports for critical components that need immediate loading
 import Testimonials from "@/components/ui/testimonials-columns-1"
@@ -41,6 +42,13 @@ function App() {
   
   // Banner hook
   const { isVisible: bannerVisible, closeBanner, config: bannerConfig } = useAnnouncementBanner();
+  
+  // Cleanup effect for memory leak prevention
+  useEffect(() => {
+    return () => {
+      cleanupSharedObserver();
+    };
+  }, []);
   
   // Debug logging
   console.log('Feature flags debug:', { 
@@ -100,7 +108,7 @@ function App() {
       {/* Hero Section */}
       <section id="home" className={`relative min-h-screen flex items-center justify-center pb-20 overflow-hidden ${bannerVisible ? 'pt-28 md:pt-36 lg:pt-40' : 'pt-24 md:pt-32 lg:pt-36'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#1e293b] to-[#0f172a]" />
-        <Boxes className="absolute inset-0 z-1" />
+        <CanvasBackground className="absolute inset-0 z-1" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b]/30 via-[#1e293b]/50 to-[#0f172a]/70 z-2 pointer-events-none" />
         
         <div className="relative z-10 section-container max-w-6xl mx-auto stable-grid grid lg:grid-cols-[3fr_2fr] gap-6 items-center layout-stable">
@@ -157,11 +165,15 @@ function App() {
           {/* Right Content - Book Cover */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative book-cover-container">
-              <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6 pointer-events-none"></div>
+              <div 
+                className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6 pointer-events-none"
+                style={{ willChange: 'transform', transform: 'rotate(6deg) translateZ(0)' }}
+              ></div>
               <img
                 src={bookCoverSrc}
                 alt="Profits Not Pixels Book Cover"
                 className="relative z-10 book-cover-fixed shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-700"
+                style={{ willChange: 'transform', transform: 'translateZ(0)' }}
               />
             </div>
           </div>

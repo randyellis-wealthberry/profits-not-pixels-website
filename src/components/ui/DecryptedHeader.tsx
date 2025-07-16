@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import DecryptedText from './DecryptedText'
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer'
 
 interface DecryptedHeaderProps {
   text: string
@@ -21,36 +22,18 @@ export default function DecryptedHeader({
   const [shouldAnimate, setShouldAnimate] = useState(false)
   const [hasAnimated, setHasAnimated] = useState(false)
   const containerRef = useRef<HTMLHeadingElement>(null)
+  const { ref: intersectionRef, isIntersecting } = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true,
+    delay: triggerDelay
+  })
 
   useEffect(() => {
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setTimeout(() => {
-            setShouldAnimate(true)
-            setHasAnimated(true)
-          }, triggerDelay)
-        }
-      })
+    if (isIntersecting && !hasAnimated) {
+      setShouldAnimate(true)
+      setHasAnimated(true)
     }
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    }
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
-    const currentRef = containerRef.current
-    
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef)
-    }
-  }, [triggerDelay, hasAnimated])
+  }, [isIntersecting, hasAnimated])
 
   // Function to split text and apply highlights
   const renderTextWithHighlights = () => {
@@ -109,7 +92,13 @@ export default function DecryptedHeader({
   }
 
   return (
-    <h2 ref={containerRef} className={className}>
+    <h2 
+      ref={(el) => {
+        Object.assign(containerRef, { current: el })
+        intersectionRef(el)
+      }} 
+      className={className}
+    >
       {renderTextWithHighlights()}
     </h2>
   )
