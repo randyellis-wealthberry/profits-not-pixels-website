@@ -35,7 +35,16 @@
       "Bash(NODE_ENV=production pnpm build)",
       "Bash(pnpm preview:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(npx depcheck:*)"
+      "Bash(npx depcheck:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(git merge:*)",
+      "Bash(git stash:*)",
+      "WebFetch(domain:reactbits.dev)",
+      "mcp__jsrepo__cli-reference",
+      "mcp__jsrepo__search-registries",
+      "Bash(npx jsrepo add:*)",
+      "Bash(npx jsrepo init:*)"
     ],
     "deny": []
   }
