@@ -17,6 +17,7 @@ export function useAnimationFrame(callback: () => void, deps: any[] = []) {
 
   const start = () => {
     if (!frameRef.current) {
+      console.log('Starting animation frame...');
       frameRef.current = requestAnimationFrame(animate)
     }
   }
