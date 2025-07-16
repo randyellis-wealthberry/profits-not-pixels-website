@@ -21,11 +21,16 @@ export default defineConfig({
     outDir: "dist",
     assetsDir: "assets", 
     emptyOutDir: true,
-    target: 'es2018',
+    target: 'es2020',
     // Optimize chunk sizes
     chunkSizeWarningLimit: 600,
     // Enable CSS code splitting
     cssCodeSplit: true,
+    // Ensure proper module format
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true
+    },
     // Build configuration for production
     rollupOptions: {
       // Remove external packages list - let bundler handle all dependencies properly
@@ -42,7 +47,7 @@ export default defineConfig({
             }
             
             // Core React ecosystem (essential for startup)
-            if (id.includes('react') && !id.includes('react-hook-form') && !id.includes('@radix-ui') ||
+            if ((id.includes('react') && !id.includes('react-hook-form') && !id.includes('@radix-ui')) ||
                 id.includes('react-dom') ||
                 id.includes('use-sync-external-store') ||
                 id.includes('scheduler')) {
@@ -96,8 +101,6 @@ export default defineConfig({
           if (id.includes('DecryptedHeroTitle') || 
               id.includes('DecryptedText') || 
               id.includes('DecryptedHeader') ||
-              id.includes('canvas-background') ||
-              id.includes('background-boxes') ||
               id.includes('swoosh')) {
             return 'ui-hero-critical';
           }
@@ -138,8 +141,7 @@ export default defineConfig({
           }
           
           // Animation and interaction utilities
-          if (id.includes('use-animation-cleanup') ||
-              id.includes('use-intersection-observer')) {
+          if (id.includes('use-intersection-observer')) {
             return 'utils-animation';
           }
         }
