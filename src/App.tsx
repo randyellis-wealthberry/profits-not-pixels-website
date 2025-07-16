@@ -151,17 +151,18 @@ function App() {
 
           {/* Right Content - Book Cover */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative book-cover-container">
+            <div className="relative book-cover-container group">
               <div 
-                className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6 pointer-events-none"
+                className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-6 pointer-events-none transition-all duration-700 group-hover:opacity-40 group-hover:scale-110 group-hover:rotate-12"
                 style={{ willChange: 'transform', transform: 'rotate(6deg) translateZ(0)' }}
               ></div>
               <img
                 src={bookCoverSrc}
                 alt="Profits Not Pixels Book Cover"
-                className="relative z-10 book-cover-fixed shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-700"
+                className="relative z-10 book-cover-fixed shadow-2xl rounded-lg transform transition-all duration-700 ease-out cursor-pointer group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-[0_25px_50px_-12px_rgba(251,191,36,0.25)]"
                 style={{ willChange: 'transform', transform: 'translateZ(0)' }}
               />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#fbbf24]/0 via-[#fbbf24]/0 to-[#fbbf24]/0 rounded-lg transition-all duration-700 group-hover:from-[#fbbf24]/5 group-hover:via-[#fbbf24]/10 group-hover:to-[#fbbf24]/5 pointer-events-none z-5"></div>
             </div>
           </div>
         </div>
@@ -231,13 +232,14 @@ function App() {
           </div>
 
           <div className="flex justify-center">
-            <div className="relative book-cover-container">
-              <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-3"></div>
+            <div className="relative book-cover-container group">
+              <div className="absolute inset-0 bg-[#fbbf24] opacity-20 blur-3xl rounded-lg transform rotate-3 pointer-events-none transition-all duration-700 group-hover:opacity-40 group-hover:scale-110 group-hover:rotate-12"></div>
               <img
                 src="/book-cover-with-author.png"
                 alt="Profits Not Pixels Book Cover by Randy M. Ellis"
-                className="relative z-10 book-cover-fixed rounded-lg shadow-2xl"
+                className="relative z-10 book-cover-fixed rounded-lg shadow-2xl transform transition-all duration-700 ease-out cursor-pointer group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-[0_25px_50px_-12px_rgba(251,191,36,0.25)]"
               />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#fbbf24]/0 via-[#fbbf24]/0 to-[#fbbf24]/0 rounded-lg transition-all duration-700 group-hover:from-[#fbbf24]/5 group-hover:via-[#fbbf24]/10 group-hover:to-[#fbbf24]/5 pointer-events-none z-5"></div>
             </div>
           </div>
         </div>
