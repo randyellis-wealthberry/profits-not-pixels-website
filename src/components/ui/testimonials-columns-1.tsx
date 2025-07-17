@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import DecryptedHeader from './DecryptedHeader';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 export const TestimonialsColumn = (props: {
   className?: string;
@@ -29,13 +30,12 @@ export const TestimonialsColumn = (props: {
                 <div className="p-8 rounded-3xl bg-gray-800/50 border border-gray-700 shadow-lg max-w-xs w-full" key={i}>
                   <div className="text-gray-300 mb-6">{text}</div>
                   <div className="flex items-center gap-3">
-                    <img
-                      width={40}
-                      height={40}
-                      src={image}
-                      alt={name}
-                      className="h-10 w-10 rounded-full"
-                    />
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={image} alt={name} />
+                      <AvatarFallback className="bg-gray-600 text-white text-sm font-medium">
+                        {name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
                     <div className="flex flex-col">
                       <div className="font-medium tracking-tight leading-5 text-white">{name}</div>
                       <div className="leading-5 text-gray-400 tracking-tight">{role}</div>
