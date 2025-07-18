@@ -89,7 +89,7 @@ const FeatureCard = ({ feature }: { feature: FeatureItem }) => {
         <div className="mb-3 text-[2rem] text-[#fbbf24]">
           <Icon />
         </div>
-        <h2 className="mb-2.5 text-xl lg:text-2xl text-white font-semibold">{feature.title}</h2>
+        <h3 className="mb-2.5 text-xl lg:text-2xl text-white font-semibold" id={`feature-${feature.title.toLowerCase().replace(/\s+/g, '-')}`}>{feature.title}</h3>
         <p className="text-pretty text-sm lg:text-base text-gray-300 leading-relaxed">
           {feature.description}
         </p>
@@ -103,7 +103,7 @@ const FeatureCard = ({ feature }: { feature: FeatureItem }) => {
 
 export default function BoardroomFluencyFeatures() {
   return (
-    <section className="py-20 bg-gradient-to-b from-[#1e293b] to-[#0f172a]" id="features">
+    <section className="py-20 bg-gradient-to-b from-[#1e293b] to-[#0f172a]" id="features" aria-label="Core skills and features for mastering boardroom fluency in design">
       <div className="section-container mx-4 sm:mx-6 max-w-7xl pb-16 pt-2 lg:mx-auto">
         <div className="flex flex-col-reverse gap-6 lg:gap-8 md:grid md:grid-cols-3 xl:gap-12">
           {/* Left column */}
@@ -122,7 +122,7 @@ export default function BoardroomFluencyFeatures() {
               <span className="absolute -bottom-px left-1/2 h-px w-2/5 -translate-x-1/2 bg-gradient-to-r from-[#fbbf24]/0 via-[#fbbf24] to-[#fbbf24]/0"></span>
               <span className="absolute inset-0 bg-[radial-gradient(30%_40%_at_50%_100%,rgba(251,191,36,0.25)_0%,transparent_100%)]"></span>
             </div>
-            <h2 className="mb-2 text-center text-2xl text-white sm:mb-2.5 md:text-3xl lg:text-4xl font-bold">
+            <h2 className="mb-2 text-center text-2xl text-white sm:mb-2.5 md:text-3xl lg:text-4xl font-bold" id="boardroom-fluency-importance">
               Why Boardroom Fluency Matters
             </h2>
             <p className="mx-auto max-w-[20rem] text-pretty text-center text-gray-300 text-base lg:text-lg leading-relaxed">

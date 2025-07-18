@@ -27,18 +27,22 @@ export const TestimonialsColumn = (props: {
           ...new Array(2).fill(0).map((_, index) => (
             <React.Fragment key={index}>
               {props.testimonials.map(({ text, image, name, role }, i) => (
-                <div className="p-8 rounded-3xl bg-gray-800/50 border border-gray-700 shadow-lg max-w-xs w-full" key={i}>
-                  <div className="text-gray-300 mb-6">{text}</div>
+                <div className="p-8 rounded-3xl bg-gray-800/50 border border-gray-700 shadow-lg max-w-xs w-full" key={i} itemScope itemType="https://schema.org/Review">
+                  <div className="text-gray-300 mb-6" itemProp="reviewBody">{text}</div>
                   <div className="flex items-center gap-3">
                     <Avatar className="h-10 w-10">
-                      <AvatarImage src={image} alt={name} />
+                      <AvatarImage src={image} alt={`${name} - ${role} testimonial for Profits Not Pixels book`} itemProp="image" />
                       <AvatarFallback className="bg-gray-600 text-white text-sm font-medium">
                         {name.split(' ').map(n => n[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col">
-                      <div className="font-medium tracking-tight leading-5 text-white">{name}</div>
-                      <div className="leading-5 text-gray-400 tracking-tight">{role}</div>
+                      <div className="font-medium tracking-tight leading-5 text-white" itemProp="author" itemScope itemType="https://schema.org/Person">
+                        <span itemProp="name">{name}</span>
+                      </div>
+                      <div className="leading-5 text-gray-400 tracking-tight" itemProp="author" itemScope itemType="https://schema.org/Person">
+                        <span itemProp="jobTitle">{role}</span>
+                      </div>
                     </div>
                   </div>
                 </div>

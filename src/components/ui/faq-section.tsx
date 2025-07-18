@@ -48,7 +48,7 @@ function FAQ() {
   const { defaultOpenItems } = useFAQDefaultState();
   
   return (
-    <div className="w-full py-20 lg:py-40">
+    <section className="w-full py-20 lg:py-40" id="faq" aria-label="Frequently asked questions about Profits Not Pixels book" itemScope itemType="https://schema.org/FAQPage">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-10">
           <div className="flex gap-10 flex-col">
@@ -73,19 +73,19 @@ function FAQ() {
           </div>
           <Accordion type="single" collapsible className="w-full" defaultValue={defaultOpenItems[0]}>
             {faqData.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index + 1}`}>
-                <AccordionTrigger>
+              <AccordionItem key={index} value={`item-${index + 1}`} itemScope itemType="https://schema.org/Question">
+                <AccordionTrigger itemProp="name">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent>
-                  {faq.answer}
+                <AccordionContent itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
+                  <span itemProp="text">{faq.answer}</span>
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
