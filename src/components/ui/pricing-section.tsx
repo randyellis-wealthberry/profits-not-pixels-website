@@ -32,7 +32,7 @@ const plan = {
 export default function PricingSection() {
   return (
     <section className="py-20 bg-[#1e293b]">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="section-container max-w-6xl mx-auto px-6">
         <div className="mt-10 md:mt-20">
           <div className="relative rounded-3xl border border-gray-700/50 bg-gray-800/70 shadow-xl shadow-black/20 backdrop-blur-sm">
             <div className="grid items-center gap-12 divide-y divide-gray-700 p-12 md:grid-cols-2 md:gap-x-2 md:divide-x md:divide-y-0">
