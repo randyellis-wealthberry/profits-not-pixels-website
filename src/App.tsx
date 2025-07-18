@@ -21,6 +21,7 @@ import Testimonials from "@/components/ui/testimonials-columns-1"
 import { FAQ } from "@/components/ui/faq-section"
 import { Footer2 } from "@/components/ui/footer2"
 import { AppleCardsCarouselDemo } from "@/components/apple-cards-carousel-demo"
+import PricingSection from "@/components/ui/pricing-section"
 
 function App() {
   // Feature flag hooks
@@ -252,6 +253,9 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <PricingSection />
 
       {/* Corporate Section */}
       <section id="corporate" className="py-20 bg-gradient-to-b from-[#0f172a] to-[#1e293b]" aria-label="Corporate solutions and enterprise training services">
